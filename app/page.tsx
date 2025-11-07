@@ -6,7 +6,7 @@ import CTASection from '@/components/home/CTASection';
 
 export default function Home() {
   return (
-    <main>
+    <main className="pt-[68px] md:pt-0">
       <Hero />
       <ProductScrollSection />
       <Services />

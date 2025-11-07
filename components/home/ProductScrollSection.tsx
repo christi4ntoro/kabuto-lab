@@ -9,29 +9,20 @@ import { products } from '@/lib/products';
 export default function ProductScrollSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Track scroll progress of this section
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end']
   });
 
-  scrollYProgress.onChange((v) => console.log('Scroll progress:', v));
-
-  // Transform scroll progress to horizontal movement
-  // Adjust -100 to control how far it scrolls (more negative = more scroll)
   const x = useTransform(scrollYProgress, [0, 1], ['0%', '-66.666%']);
 
-  // Get first 6 products
   const displayProducts = products.slice(0, 6);
 
   return (
     <section 
       ref={containerRef} 
-      className="relative"
-      // Height determines scroll duration - adjust as needed
-      style={{ height: '300vh' }}
+      className="relative md:h-[300vh]"
     >
-      {/* Sticky container that holds during scroll */}
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="flex h-full items-center">
           
@@ -40,7 +31,7 @@ export default function ProductScrollSection() {
             style={{ x }}
             className="hidden md:flex gap-6 px-8 will-change-transform"
           >
-            {displayProducts.map((product, idx) => (
+            {displayProducts.map((product) => (
               <div 
                 key={product.id}
                 className="flex-shrink-0 w-[400px]"
@@ -94,7 +85,7 @@ export default function ProductScrollSection() {
                 </h3>
                 <Link 
                   href="/products"
-                  className="px-6 py-3 bg-white text-black font-semibold rounded-lg"
+                  className="px-6 py-3 bg-white text-black font-semibold"
                 >
                   Products
                 </Link>

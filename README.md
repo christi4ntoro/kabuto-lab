@@ -80,7 +80,7 @@ lib/
 public/
 ├── blog/
 ├── hero/
-└── images/
+└── shared/
 
 eslint.config.mjs
 next.config.mjs
