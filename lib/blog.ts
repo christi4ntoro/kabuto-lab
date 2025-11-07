@@ -12,6 +12,7 @@ export interface BlogPost {
   date: string;
   excerpt: string;
   content: string;
+  image?: string; // Add featured image
 }
 
 export function getAllPosts(): BlogPost[] {
@@ -30,6 +31,7 @@ export function getAllPosts(): BlogPost[] {
         title: data.title,
         date: data.date,
         excerpt: data.excerpt,
+        image: data.image, // Extract image from frontmatter
         content,
       };
     });
@@ -48,6 +50,7 @@ export function getPostBySlug(slug: string): BlogPost {
     title: data.title,
     date: data.date,
     excerpt: data.excerpt,
+    image: data.image, // Extract image from frontmatter
     content,
   };
 }

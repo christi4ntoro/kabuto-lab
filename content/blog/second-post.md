@@ -2,6 +2,7 @@
 title: "Building Immersive Experiences: A Framework"
 date: "2025-11-04"
 excerpt: "Our approach to structured immersive design"
+image: "/blog/welcome-kabuto-lab.jpg"
 ---
 
 # Building Immersive Experiences

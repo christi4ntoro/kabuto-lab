@@ -2,6 +2,7 @@
 title: "Welcome to Kabuto Lab"
 date: "2025-11-03"
 excerpt: "Why we're building tools for immersive experience designers"
+image: "/blog/welcome-kabuto-lab.jpg"
 ---
 
 # Welcome to Kabuto Lab
