@@ -3,9 +3,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Menu, X, Youtube, Github, Instagram } from 'lucide-react';
 
 export default function Header() {
+  const pathname = usePathname();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -100,15 +102,22 @@ export default function Header() {
 
             {/* Desktop Nav */}
             <div className="hidden md:flex gap-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-white hover:text-blue-400 transition-colors font-medium"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`font-medium transition-colors ${
+                      isActive 
+                        ? 'text-blue-400' 
+                        : 'text-white hover:text-blue-400'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </div>
 
             {/* Mobile Hamburger */}
@@ -134,16 +143,23 @@ export default function Header() {
         <div className="flex flex-col justify-between h-full pt-24 pb-8 px-6">
           {/* Nav Links */}
           <nav className="flex flex-col gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-4xl font-medium text-white hover:text-blue-400 transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-4xl font-medium transition-colors ${
+                    isActive 
+                      ? 'text-blue-400' 
+                      : 'text-white hover:text-blue-400'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Social Icons */}

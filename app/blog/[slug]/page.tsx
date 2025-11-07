@@ -18,7 +18,7 @@ export default async function BlogPostPage({
   const contentHtml = await markdownToHtml(post.content);
   
   return (
-    <div className="min-h-screen bg-black text-white p-8">
+    <div className="min-h-screen bg-black text-white p-8 pt-[68px]">
       <article className="max-w-4xl mx-auto">
         <Link 
           href="/blog"
