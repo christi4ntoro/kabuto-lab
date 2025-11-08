@@ -45,8 +45,8 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="h-screen w-full bg-[#1e1e1e] flex items-center justify-center p-2 h-screen md:snap-start">
-      <div className="relative w-full h-full rounded-xl overflow-hidden bg-gradient-to-br from-[#6c588d] to-[#8a6fb8]">
+    <section className="h-screen w-full bg-[#1e1e1e] flex items-center justify-center p-2 md:p-2 py-4 md:py-2 md:snap-start">
+  <div className="relative w-full h-full rounded-xl overflow-hidden bg-gradient-to-br from-[#6c588d] to-[#8a6fb8]">
         
         {/* Animated gradient blobs */}
         <div className="absolute inset-0 overflow-hidden opacity-60">
@@ -102,18 +102,27 @@ export default function Hero() {
         {/* Content */}
         <div className="relative h-full flex items-center justify-center px-4 z-10">
           <div className="text-center max-w-4xl">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 sm:mb-6 text-white">
-              <span className="font-serif italic">Human</span> <span className='fontBold'>First</span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl mb-4 sm:mb-6 text-white">
+              <span className="font-serif italic">Human-Centered.</span> <span className='font-bold'>Future-Proof.</span>
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-6 sm:mb-8">
-              Immersive experience design
+              Research-driven frameworks for immersive experiences. Full custom design from concept to deployment.
             </p>
-            <Link 
-              href="/products"
-              className="inline-block bg-white text-black px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-200"
-            >
-              View Products
-            </Link>
+            {/* Buttons Container */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+              <Link 
+                href="/products"
+                className="inline-block bg-white text-black px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-200 text-center"
+              >
+                Access the System
+              </Link>
+              <Link 
+                href="/products"
+                className="inline-block bg-white text-black px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-200 text-center"
+              >
+                Let's Create Together
+              </Link>
+            </div>
           </div>
         </div>
       </div>
