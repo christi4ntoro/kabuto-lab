@@ -3,15 +3,16 @@ import { Github, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 const socialLinks = [
   {
-    name: 'Twitter',
-    url: 'https://twitter.com/kabutolab',
-    icon: Twitter
-  },
-  {
     name: 'LinkedIn',
     url: 'https://linkedin.com/company/kabutolab',
     icon: Linkedin
   },
+  {
+    name: 'Twitter',
+    url: 'https://twitter.com/kabutolab',
+    icon: Twitter
+  },
+  
   {
     name: 'GitHub',
     url: 'https://github.com/kabutolab',

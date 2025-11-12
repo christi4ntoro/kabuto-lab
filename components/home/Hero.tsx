@@ -45,8 +45,8 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="h-screen w-full bg-[#1e1e1e] flex items-center justify-center p-2 md:p-2 py-4 md:py-2 md:snap-start">
-  <div className="relative w-full h-full rounded-xl overflow-hidden bg-gradient-to-br from-[#6c588d] to-[#8a6fb8]">
+    <section className="h-screen w-full flex items-center justify-center p-2 md:p-2 py-4 md:py-2 md:snap-start">
+      <div className="relative w-full h-full rounded-xl overflow-hidden bg-gradient-to-br from-[#6c588d] to-[#8a6fb8]">
         
         {/* Animated gradient blobs */}
         <div className="absolute inset-0 overflow-hidden opacity-60">
@@ -91,9 +91,9 @@ export default function Hero() {
 
         {/* Human silhouette */}
         <div 
-          className="absolute inset-0 w-full h-full pointer-events-none opacity-20"
+          className="absolute inset-0 w-full h-full pointer-events-none opacity-48"
           style={{
-            backgroundImage: 'url("/hero/human.avif")',
+            backgroundImage: 'url("/hero/wave.png")',
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
@@ -102,8 +102,8 @@ export default function Hero() {
         {/* Content */}
         <div className="relative h-full flex items-center justify-center px-4 z-10">
           <div className="text-center max-w-4xl">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl mb-4 sm:mb-6 text-white">
-              <span className="font-serif italic">Human-Centered.</span> <span className='font-bold'>Future-Proof.</span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl mb-4 sm:mb-6 text-white md:pt-16">
+              <span className="font-serif italic">Human-Centered.</span><br></br><span className='font-bold'>Future-Forward.</span>
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-6 sm:mb-8">
               Research-driven frameworks for immersive experiences. Full custom design from concept to deployment.
@@ -117,7 +117,7 @@ export default function Hero() {
                 Access the System
               </Link>
               <Link 
-                href="/products"
+                href="/contact"
                 className="inline-block bg-white text-black px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-200 text-center"
               >
                 Let's Create Together

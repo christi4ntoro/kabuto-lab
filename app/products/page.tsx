@@ -3,10 +3,10 @@ import { products } from '@/lib/products';
 
 export default function ProductsPage() {
   return (
-    <div className="min-h-screen bg-black text-white p-8 pt-[68px]">
+    <div className="min-h-screen text-white p-6 md:p-16 pt-20 md:pt-24">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-6xl font-bold mb-4 text-center">Products</h1>
-        <p className="text-xl text-gray-400 mb-12 text-center">
+        <h1 className="text-6xl font-bold mb-4">Products</h1>
+        <p className="text-xl text-gray-400 mb-12">
           Tools for immersive experience designers
         </p>
         

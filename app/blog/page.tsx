@@ -8,9 +8,9 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-black text-white p-8 pt-[68px]">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-6xl font-bold mb-4">Blog</h1>
+        <h1 className="text-6xl font-bold mb-4">Transmissions for the Lab</h1>
         <p className="text-xl text-gray-400 mb-12">
-          Insights on immersive experience design
+          Research notes on immersive design and emergent interaction
         </p>
         
         <div className="space-y-12">
