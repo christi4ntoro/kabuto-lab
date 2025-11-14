@@ -11,7 +11,7 @@ export const products: Product[] = [
   {
     id: "product-01",
     name: "Narrative Immersion Protocol",
-    price: 97,
+    price: 0,
     benefit: "Complete framework for immersive experience design",
     buyUrl: "https://kabutolab.lemonsqueezy.com/checkout/buy/YOUR-PRODUCT-ID",
     image: "/images/narrative-protocol.jpg" // Add your image path
@@ -19,7 +19,7 @@ export const products: Product[] = [
   {
     id: "product-02",
     name: "Product Two",
-    price: 49,
+    price: 0,
     benefit: "Another amazing product for testing",
     buyUrl: "#",
     image: "/images/test-product.jpg" // Add your image path
@@ -27,7 +27,7 @@ export const products: Product[] = [
   {
     id: "product-03",
     name: "Product Three",
-    price: 97,
+    price: 0,
     benefit: "Complete framework for immersive experience design",
     buyUrl: "https://kabutolab.lemonsqueezy.com/checkout/buy/YOUR-PRODUCT-ID",
     image: "/images/narrative-protocol.jpg" // Add your image path
@@ -35,7 +35,7 @@ export const products: Product[] = [
   {
     id: "product-04",
     name: "Product Four",
-    price: 49,
+    price: 0,
     benefit: "Another amazing product for testing",
     buyUrl: "#",
     image: "/images/test-product.jpg" // Add your image path
@@ -43,7 +43,7 @@ export const products: Product[] = [
   {
     id: "product-05",
     name: "Product Five",
-    price: 97,
+    price: 0,
     benefit: "Complete framework for immersive experience design",
     buyUrl: "https://kabutolab.lemonsqueezy.com/checkout/buy/YOUR-PRODUCT-ID",
     image: "/images/narrative-protocol.jpg" // Add your image path
@@ -51,7 +51,7 @@ export const products: Product[] = [
   {
     id: "product-06",
     name: "Product Six",
-    price: 49,
+    price: 0,
     benefit: "Another amazing product for testing",
     buyUrl: "#",
     image: "/images/test-product.jpg" // Add your image path
@@ -67,7 +67,7 @@ export const products: Product[] = [
   {
     id: "product-08",
     name: "Product Eight",
-    price: 49,
+    price: 0,
     benefit: "Another amazing product for testing",
     buyUrl: "#",
     image: "/images/test-product.jpg" // Add your image path
