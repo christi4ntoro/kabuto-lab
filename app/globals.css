@@ -187,3 +187,38 @@ html {
 header a {
   font-family: var(--font-jetbrains-mono), Menlo, Monaco, monospace;
 }
+
+/* Allow clicks to pass through main content in footer area */
+main {
+  position: relative;
+}
+
+/* Create a gradient mask that allows pointer events in footer area */
+@supports (pointer-events: auto) {
+  main::after {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+  }
+  
+  /* Disable pointer events on bottom padding area */
+  main > *:last-child {
+    position: relative;
+  }
+}
+
+.-mt-screen {
+  margin-top: -100vh;
+}
+
+/* Smooth footer parallax */
+footer {
+  transform: translateY(40vh);
+  transition: transform 0.1s linear;
+  will-change: transform;
+}

@@ -10,13 +10,26 @@ export default function Header() {
   const pathname = usePathname();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
+      // Scroll progress for header animations
       const scrollY = window.scrollY;
       const maxScroll = 20;
       const progress = Math.min(scrollY / maxScroll, 1);
       setScrollProgress(progress);
+
+      // Check if user has scrolled to footer area
+      // Calculate total scrollable height
+      const documentHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const scrollableDistance = documentHeight - windowHeight;
+      
+      // Hide header when user is in bottom 100vh (footer area)
+      const footerThreshold = scrollableDistance - windowHeight;
+      const isVisible = scrollY >= footerThreshold;
+      setIsFooterVisible(isVisible);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -53,7 +66,9 @@ export default function Header() {
   return (
     <>
       <header
-        className="header-fixed"
+        className={`header-fixed transition-all duration-500 ${
+          isFooterVisible ? 'opacity-0 pointer-events-none -translate-y-full' : 'opacity-100 translate-y-0'
+        }`}
         style={{ height: `${headerHeight}px` }}
       >
         <div className="header-glass-container">
@@ -119,6 +134,7 @@ export default function Header() {
                     style={{ fontSize: `${navASize}px` }}
                     key={link.href}
                     href={link.href}
+                    aria-current={isActive ? "page" : undefined}
                     className={`font-medium transition-colors ${
                       isActive 
                         ? 'text-blue-400' 
@@ -162,6 +178,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
+                  aria-current={isActive ? "page" : undefined}
                   className={`text-4xl font-medium transition-colors ${
                     isActive 
                       ? 'text-blue-400' 

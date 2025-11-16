@@ -1,86 +1,198 @@
+'use client';
+
 import Link from 'next/link';
-import { Github, Twitter, Linkedin, Instagram } from 'lucide-react';
+import Image from 'next/image';
+import { Linkedin, Youtube, Github, Instagram, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
 
 const socialLinks = [
-  {
-    name: 'LinkedIn',
-    url: 'https://linkedin.com/company/kabutolab',
-    icon: Linkedin
-  },
-  {
-    name: 'Twitter',
-    url: 'https://twitter.com/kabutolab',
-    icon: Twitter
-  },
-  
-  {
-    name: 'GitHub',
-    url: 'https://github.com/kabutolab',
-    icon: Github
-  },
-  {
-    name: 'Instagram',
-    url: 'https://instagram.com/kabutolab',
-    icon: Instagram
-  }
+  { name: 'LinkedIn', url: 'https://linkedin.com/company/kabutolab', icon: Linkedin },
+  { name: 'Youtube', url: 'https://www.youtube.com/@kabutolab', icon: Youtube },
+  { name: 'GitHub', url: 'https://github.com/christi4ntoro', icon: Github },
+  { name: 'Instagram', url: 'https://www.instagram.com/kabuto.lab/', icon: Instagram }
+];
+
+const menuCompany = [
+  { label: 'Home', href: '/' },
+  { label: 'What We Do', href: '/services' },
+  { label: 'About', href: '/about' },
+  { label: 'Cases', href: '/work' },
+  { label: 'Connect', href: '/contact' }
+];
+
+const menuProducts = [
+  { label: 'Free', href: '/products' },
+  { label: 'Premium', href: '/products#premium' },
+  { label: 'Workshops', href: '/workshops' }
+];
+
+const menuLearn = [
+  { label: 'Blog', href: '/blog' },
+  { label: 'Clients', href: '/clients' },
+  { label: 'Testimonials', href: '/testimonials' },
+  { label: 'FAQs', href: '/faq' }
 ];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle newsletter signup
+    console.log('Newsletter signup:', email);
+    setEmail('');
+  };
 
   return (
-    <footer className="bg-black border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-          {/* Logo & Description */}
-          <div className="md:col-span-1">
-            <Link href="/" className="inline-block mb-4">
-              <h3 className="text-2xl font-bold text-white">
-                Kabuto Lab
-              </h3>
-            </Link>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              Tools and frameworks for immersive experience designers. 
-              Building the future of narrative design.
+    <footer className="relative bg-black text-white h-screen flex items-center">
+      <div className="w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+          
+          {/* First Row - Logos */}
+          <div className="grid grid-cols-12 gap-6 mb-16 md:mb-24">
+            {/* Icon Logo - 1 col */}
+            <div className="col-span-12 md:col-span-1">
+              <Link href="/" aria-label="Kabuto Lab home">
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                  {/* Replace with your icon logo */}
+                  <span className="text-2xl font-bold">K</span>
+                </div>
+              </Link>
+            </div>
+
+            {/* Blank space - 5 cols on desktop, none on mobile */}
+            <div className="hidden md:block md:col-span-5" />
+
+            {/* Full Logo & Description - 5 cols */}
+            <div className="col-span-12 md:col-span-5">
+              <Link href="/" className="inline-block mb-4">
+                <h3 className="text-3xl md:text-4xl font-bold">
+                  Kabuto Lab™
+                </h3>
+              </Link>
+              <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-md">
+                Tools and frameworks for immersive experience designers. 
+                Building the future of narrative design through systematic innovation.
+              </p>
+            </div>
+          </div>
+
+          {/* Separator */}
+          <div className="border-t border-white/10 mb-16 md:mb-20" />
+
+          {/* Second Row - Menus & Newsletter */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-6 mb-16 md:mb-20">
+            
+            {/* Menus Section - 6 cols total on desktop */}
+            <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-6">
+              
+              {/* Company Menu - 2 cols */}
+              <div>
+                <h4 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">
+                  Company
+                </h4>
+                <nav className="space-y-3">
+                  {menuCompany.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="block text-gray-400 hover:text-white transition-colors text-sm"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+
+              {/* Products Menu - 2 cols */}
+              <div>
+                <h4 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">
+                  Products
+                </h4>
+                <nav className="space-y-3">
+                  {menuProducts.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="block text-gray-400 hover:text-white transition-colors text-sm"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+
+              {/* Learn Menu - 2 cols */}
+              <div>
+                <h4 className="text-white font-bold mb-4 text-sm uppercase tracking-wider">
+                  Learn
+                </h4>
+                <nav className="space-y-3">
+                  {menuLearn.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="block text-gray-400 hover:text-white transition-colors text-sm"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+            </div>
+
+            {/* Newsletter Section - 5 cols */}
+            <div className="md:col-span-5">
+              <p className="text-gray-300 mb-6 text-sm md:text-base leading-relaxed">
+                Get valuable insights on immersive design, narrative frameworks, and experience creation straight to your inbox.
+              </p>
+
+              {/* Newsletter Form */}
+              <form onSubmit={handleSubmit} className="mb-4">
+                <div className="flex items-center border-b border-white/30 pb-2 hover:border-white/60 transition-colors group">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email here"
+                    required
+                    className="flex-1 bg-transparent text-white placeholder-gray-500 focus:outline-none text-sm md:text-base"
+                  />
+                  <button
+                    type="submit"
+                    aria-label="Subscribe to newsletter"
+                    className="text-gray-400 group-hover:text-white transition-colors"
+                  >
+                    <ArrowRight size={20} />
+                  </button>
+                </div>
+              </form>
+
+              {/* Privacy Policy Link */}
+              <p className="text-xs text-gray-500">
+                By signing up, you agree to our{' '}
+                <Link href="/privacy" className="text-gray-400 hover:text-white underline transition-colors">
+                  Privacy Policy
+                </Link>
+                . Unsubscribe anytime.
+              </p>
+            </div>
+          </div>
+
+          {/* Separator */}
+          <div className="border-t border-white/10 mb-8" />
+
+          {/* Third Row - Credits & Social */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            {/* Credits */}
+            <p className="text-gray-400 text-sm order-2 md:order-1">
+              © {currentYear} KabutoLab™ | LIS | LX
             </p>
-          </div>
 
-          {/* Quick Links - Optional, remove if not needed */}
-          <div className="md:col-span-1">
-            <h4 className="text-white font-bold mb-4">Quick Links</h4>
-            <nav className="space-y-2">
-              <Link 
-                href="/products" 
-                className="block text-gray-400 hover:text-white transition-colors"
-              >
-                Products
-              </Link>
-              <Link 
-                href="/blog" 
-                className="block text-gray-400 hover:text-white transition-colors"
-              >
-                Blog
-              </Link>
-              <Link 
-                href="/about" 
-                className="block text-gray-400 hover:text-white transition-colors"
-              >
-                About
-              </Link>
-              <Link 
-                href="/contact" 
-                className="block text-gray-400 hover:text-white transition-colors"
-              >
-                Contact
-              </Link>
-            </nav>
-          </div>
-
-          {/* Social Links */}
-          <div className="md:col-span-1">
-            <h4 className="text-white font-bold mb-4">Connect</h4>
-            <div className="flex gap-4">
+            {/* Social Icons */}
+            <div className="flex gap-5 order-1 md:order-2">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -92,36 +204,10 @@ export default function Footer() {
                     className="text-gray-400 hover:text-white transition-colors"
                     aria-label={social.name}
                   >
-                    <Icon size={24} />
+                    <Icon size={20} />
                   </a>
                 );
               })}
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            {/* Copyright */}
-            <p className="text-gray-400 text-sm">
-              © {currentYear} Kabuto Lab. All rights reserved.
-            </p>
-
-            {/* Legal Links */}
-            <div className="flex gap-6 text-sm">
-              <Link 
-                href="/privacy" 
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link 
-                href="/terms" 
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Terms of Service
-              </Link>
             </div>
           </div>
         </div>

@@ -14,8 +14,8 @@ const geistSans = Geist({
 const newsreaderSerif = Newsreader({
   variable: "--font-newsreader-serif",
   subsets: ["latin"],
-  weight: ["300", "500", "700"], // Normal (400), Medium (500), Bold (700)
-  style: ["normal", "italic"],  // Enables italic if available
+  weight: ["300", "500", "700"],
+  style: ["normal", "italic"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${jetbrainsMono.variable} ${newsreaderSerif.variable} antialiased`}
+        className={`${geistSans.variable} ${jetbrainsMono.variable} ${newsreaderSerif.variable} antialiased bg-black`}
       >
         <Header />
         {children}
