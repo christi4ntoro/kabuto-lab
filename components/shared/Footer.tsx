@@ -1,12 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { Linkedin, Youtube, Github, Instagram, ArrowRight } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const socialLinks = [
-  { name: 'LinkedIn', url: 'https://linkedin.com/company/kabutolab', icon: Linkedin },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/chrisrto/', icon: Linkedin },
   { name: 'Youtube', url: 'https://www.youtube.com/@kabutolab', icon: Youtube },
   { name: 'GitHub', url: 'https://github.com/christi4ntoro', icon: Github },
   { name: 'Instagram', url: 'https://www.instagram.com/kabuto.lab/', icon: Instagram }
@@ -36,40 +35,74 @@ const menuLearn = [
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const footerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Calculate how far down the page we've scrolled
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      
+      // Get the position where footer should start moving
+      // This is when we're near the bottom of the page
+      const footerTriggerPoint = docHeight - window.innerHeight;
+      
+      // Calculate scroll progress (0 to 1) after trigger point
+      if (scrollTop >= footerTriggerPoint) {
+        const progress = (scrollTop - footerTriggerPoint) / window.innerHeight;
+        setScrollProgress(Math.min(progress, 1));
+      } else {
+        setScrollProgress(0);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial call
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle newsletter signup
     console.log('Newsletter signup:', email);
     setEmail('');
   };
 
+  // Calculate the transform based on scroll progress
+  // Footer moves up at 40% of the scroll speed (parallax effect)
+  const footerTransform = `translateY(${(1 - scrollProgress) * 40}%)`;
+
   return (
-    <footer className="relative bg-black text-white h-screen flex items-center">
+    <footer 
+      ref={footerRef}
+      className="footer-parallax"
+      style={{
+        transform: footerTransform,
+        transition: 'transform 0.1s ease-out'
+      }}
+    >
       <div className="w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           
           {/* First Row - Logos */}
           <div className="grid grid-cols-12 gap-6 mb-16 md:mb-24">
-            {/* Icon Logo - 1 col */}
+            {/* Icon Logo - 1 col on left */}
             <div className="col-span-12 md:col-span-1">
               <Link href="/" aria-label="Kabuto Lab home">
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
-                  {/* Replace with your icon logo */}
-                  <span className="text-2xl font-bold">K</span>
+                  <img src={"/shared/logo-icon.svg"} />
                 </div>
               </Link>
             </div>
 
-            {/* Blank space - 5 cols on desktop, none on mobile */}
-            <div className="hidden md:block md:col-span-5" />
+            {/* Blank space - 6 cols in the middle */}
+            <div className="hidden md:block md:col-span-6" />
 
-            {/* Full Logo & Description - 5 cols */}
+            {/* Full Logo & Description - 5 cols on right */}
             <div className="col-span-12 md:col-span-5">
               <Link href="/" className="inline-block mb-4">
-                <h3 className="text-3xl md:text-4xl font-bold">
-                  Kabuto Lab™
-                </h3>
+                <img src={"/shared/logo-white.svg"} className='w-100'/>
               </Link>
               <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-md">
                 Tools and frameworks for immersive experience designers. 
@@ -181,7 +214,7 @@ export default function Footer() {
           </div>
 
           {/* Separator */}
-          <div className="border-t border-white/10 mb-8" />
+          <div className="mb-8" />
 
           {/* Third Row - Credits & Social */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">

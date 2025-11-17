@@ -8,46 +8,41 @@ import { Menu, X, Youtube, Github, Instagram, Linkedin } from 'lucide-react';
 
 export default function Header() {
   const pathname = usePathname();
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Scroll progress for header animations
       const scrollY = window.scrollY;
-      const maxScroll = 20;
-      const progress = Math.min(scrollY / maxScroll, 1);
-      setScrollProgress(progress);
+      
+      setIsScrolled(scrollY > 50);
 
-      // Check if user has scrolled to footer area
-      // Calculate total scrollable height
       const documentHeight = document.documentElement.scrollHeight;
       const windowHeight = window.innerHeight;
       const scrollableDistance = documentHeight - windowHeight;
       
-      // Hide header when user is in bottom 100vh (footer area)
-      const footerThreshold = scrollableDistance - windowHeight;
-      const isVisible = scrollY >= footerThreshold;
+      const footerStart = scrollableDistance - windowHeight;
+      const footerVisibilityThreshold = footerStart + (windowHeight * 0.8);
+      const isVisible = scrollY >= footerVisibilityThreshold;
       setIsFooterVisible(isVisible);
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const headerHeight = 68 - (12 * scrollProgress);
-  const logoSize = 100 - (12 * scrollProgress);
-  const navASize = 15.2 - (.8 * scrollProgress);
-  const notchTop = 8 - (8 * scrollProgress);
+  const headerHeight = 68;
   
   useEffect(() => {
-    if (mobileMenuOpen) {
+    if (mobileMenuOpen || desktopMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [mobileMenuOpen]);
+  }, [mobileMenuOpen, desktopMenuOpen]);
 
   const navLinks = [
     { href: '/products', label: 'Systems' },
@@ -63,6 +58,11 @@ export default function Header() {
     { href: 'https://www.instagram.com/kabuto.lab/', icon: Instagram, label: 'Instagram' },
   ];
 
+  const closeAllMenus = () => {
+    setMobileMenuOpen(false);
+    setDesktopMenuOpen(false);
+  };
+
   return (
     <>
       <header
@@ -72,85 +72,88 @@ export default function Header() {
         style={{ height: `${headerHeight}px` }}
       >
         <div className="header-glass-container">
-          {/* Static Glass Shine Effect - Bottom Border */}
-          <div className="nav-shine-container">
-            <div className="nav-shine-line" />
-          </div>
-          <div className="nav-shine-glow" />
-          <div className="nav-shine-glow-soft" />
-
-          {/* Left notch - desktop only */}
-          <div 
-            className="header-notch header-notch-left"
-            style={{ top: `${notchTop}px` }}
-          >
-            <Image
-              src="/shared/curve-nav.svg"
-              alt=""
-              width={8}
-              height={8}
-              className="w-full h-full"
-            />
-          </div>
-          {/* Right notch - desktop only */}
-          <div 
-            className="header-notch header-notch-right"
-            style={{ top: `${notchTop}px` }}
-          >
-            <Image
-              src="/shared/curve-nav.svg"
-              alt=""
-              width={8}
-              height={8}
-              className="w-full h-full"
-            />
-          </div>
-          
           <nav className="h-full max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-between relative z-10">
-            {/* Logo */}
+            {/* Logo - Crossfade between full and icon */}
             <Link 
               href="/" 
-              className="relative z-50"
+              className="relative z-50 block"
               aria-label="Kabuto Lab Home"
-              onClick={() => mobileMenuOpen && setMobileMenuOpen(false)}
+              onClick={closeAllMenus}
             >
-              <Image
-                src="/shared/logo-white.svg"
-                alt="KabutoLab™"
-                width={logoSize}
-                height={logoSize}
-                priority
-                className="transition-all"
-                style={{ width: `${logoSize}px`, height: `${logoSize}px` }}
-              />
+              {/* Desktop: Crossfade between logos */}
+              <div className="hidden md:block relative w-[100px] h-[40px]">
+                <Image
+                  src="/shared/logo-white.svg"
+                  alt="KabutoLab™"
+                  width={100}
+                  height={40}
+                  priority
+                  className={`absolute inset-0 object-contain object-left transition-opacity duration-500 ${
+                    isScrolled ? 'opacity-0' : 'opacity-100'
+                  }`}
+                />
+                <Image
+                  src="/shared/logo-icon.svg"
+                  alt="KabutoLab™"
+                  width={40}
+                  height={40}
+                  priority
+                  className={`absolute inset-0 object-contain object-left transition-opacity duration-500 ${
+                    isScrolled ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
+              </div>
+              
+              {/* Mobile: Always show icon */}
+              <div className="md:hidden">
+                <Image
+                  src="/shared/logo-icon.svg"
+                  alt="KabutoLab™"
+                  width={40}
+                  height={40}
+                  priority
+                />
+              </div>
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex gap-8">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <Link
-                    style={{ fontSize: `${navASize}px` }}
-                    key={link.href}
-                    href={link.href}
-                    aria-current={isActive ? "page" : undefined}
-                    className={`font-medium transition-colors ${
-                      isActive 
-                        ? 'text-blue-400' 
-                        : 'text-white text-opacity-20 hover:text-blue-400'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
+            <div className="hidden md:flex items-center">
+              {!isScrolled ? (
+                <div className="flex gap-8">
+                  {navLinks.map((link) => {
+                    const isActive = pathname === link.href;
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        aria-current={isActive ? "page" : undefined}
+                        className={`font-medium transition-all duration-300 text-[15px] ${
+                          isActive 
+                            ? 'opacity-100' 
+                            : 'opacity-50 hover:opacity-100'
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              ) : (
+                <button
+                  onClick={() => setDesktopMenuOpen(!desktopMenuOpen)}
+                  className="transition-colors font-medium text-[15px]"
+                  aria-label={desktopMenuOpen ? "Close menu" : "Open menu"}
+                  aria-expanded={desktopMenuOpen}
+                >
+                  <span>{desktopMenuOpen ? 'Close' : 'Menu'}</span>
+                </button>
+              )}
             </div>
 
             {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden relative z-50 text-white"
+              className="block md:hidden relative z-50"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
@@ -160,30 +163,35 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Full-Screen Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-[#030014] backdrop-blur-lg transition-all duration-300 md:hidden ${
-          mobileMenuOpen
+        className={`fixed inset-0 z-40 bg-[#030014] backdrop-blur-lg transition-all duration-500 ${
+          mobileMenuOpen || desktopMenuOpen
             ? 'opacity-100 pointer-events-auto'
             : 'opacity-0 pointer-events-none'
         }`}
       >
-        <div className="flex flex-col justify-between h-full pt-24 pb-8 px-6">
-          {/* Nav Links */}
-          <nav className="flex flex-col gap-6">
-            {navLinks.map((link) => {
+        <div className="flex flex-col justify-between h-full pt-24 pb-8 px-6 md:pt-32 md:px-16">
+          <nav className="flex flex-col gap-6 md:gap-8">
+            {navLinks.map((link, index) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={closeAllMenus}
                   aria-current={isActive ? "page" : undefined}
-                  className={`text-4xl font-medium transition-colors ${
+                  className={`text-4xl md:text-6xl font-medium transition-all duration-300 ${
                     isActive 
                       ? 'text-blue-400' 
                       : 'text-white hover:text-blue-400'
                   }`}
+                  style={{
+                    transitionDelay: `${index * 50}ms`,
+                    transform: (mobileMenuOpen || desktopMenuOpen) 
+                      ? 'translateY(0) opacity-1' 
+                      : 'translateY(20px) opacity-0'
+                  }}
                 >
                   {link.label}
                 </Link>
@@ -191,8 +199,7 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Social Icons */}
-          <div className="flex gap-6 justify-center">
+          <div className="flex gap-6 justify-center md:justify-start">
             {socialLinks.map((social) => {
               const Icon = social.icon;
               return (

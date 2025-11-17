@@ -21,7 +21,7 @@ export default function ProductScrollSection() {
   return (
     <section 
       ref={containerRef} 
-      className="relative md:h-[300vh]"
+      className="relative md:h-[300vh] bg-[#123456]"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="flex h-full items-center">

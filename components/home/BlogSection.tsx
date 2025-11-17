@@ -7,7 +7,7 @@ export default function BlogSection() {
   const latestPosts = getAllPosts().slice(0, 2);
 
   return (
-    <section className="px-4 py-16 md:py-24 bg-black">
+    <section className="px-4 py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="flex items-center justify-between mb-12">

@@ -57,10 +57,14 @@ app/
 
 components/
 ├── home/
+│   ├── BlogSection.tsx
 │   ├── CTASection.tsx
 │   ├── Hero.tsx
 │   ├── ProductScrollSection.tsx
 │   └── Services.tsx
+├── shared/
+│   ├── Footer.tsx
+│   └── Header.tsx
 ├── ui/
 │   ├── ProductCard.tsx
 │   └── ServiceCard.tsx

@@ -39,7 +39,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${jetbrainsMono.variable} ${newsreaderSerif.variable} antialiased bg-black`}
       >
         <Header />
-        {children}
+        
+        {/* Main content wrapper - this will slide up over the footer */}
+        <div className="main-content-wrapper">
+          {children}
+        </div>
+        
+        {/* Footer stays fixed underneath */}
         <Footer />
       </body>
     </html>
