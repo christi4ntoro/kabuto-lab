@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Youtube, Github, Instagram, Linkedin } from 'lucide-react';
 
 export default function Header() {
   const pathname = usePathname();
@@ -12,6 +11,8 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
+
+  const menuOpen = mobileMenuOpen || desktopMenuOpen;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,25 +38,18 @@ export default function Header() {
   const headerHeight = 68;
   
   useEffect(() => {
-    if (mobileMenuOpen || desktopMenuOpen) {
+    if (menuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [mobileMenuOpen, desktopMenuOpen]);
+  }, [menuOpen]);
 
   const navLinks = [
     { href: '/products', label: 'Systems' },
     { href: '/about', label: 'Archive' },
     { href: '/blog', label: 'Transmissions' },
     { href: '/contact', label: 'Connect' },
-  ];
-
-  const socialLinks = [
-    { href: 'https://www.linkedin.com/in/chrisrto/', icon: Linkedin, label: 'LinkedIn' },
-    { href: 'https://www.youtube.com/@kabutolab', icon: Youtube, label: 'YouTube' },
-    { href: 'https://github.com/christi4ntoro', icon: Github, label: 'GitHub' },
-    { href: 'https://www.instagram.com/kabuto.lab/', icon: Instagram, label: 'Instagram' },
   ];
 
   const closeAllMenus = () => {
@@ -71,26 +65,34 @@ export default function Header() {
         }`}
         style={{ height: `${headerHeight}px` }}
       >
-        <div className="header-glass-container">
+        <div className="header-container">
           <nav className="h-full max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-between relative z-10">
-            {/* Logo - Crossfade between full and icon */}
+            {/* Logo - Smooth crossfade */}
             <Link 
               href="/" 
-              className="relative z-50 block"
+              className="relative z-50"
               aria-label="Kabuto Lab Home"
               onClick={closeAllMenus}
             >
-              {/* Desktop: Crossfade between logos */}
-              <div className="hidden md:block relative w-[100px] h-[40px]">
+              {/* Desktop */}
+              <div className="hidden md:block relative" style={{ width: '100px', height: '40px' }}>
                 <Image
                   src="/shared/logo-white.svg"
                   alt="KabutoLab™"
                   width={100}
                   height={40}
                   priority
-                  className={`absolute inset-0 object-contain object-left transition-opacity duration-500 ${
-                    isScrolled ? 'opacity-0' : 'opacity-100'
-                  }`}
+                  className="absolute inset-0 transition-opacity duration-500"
+                  style={{ opacity: (!isScrolled && !menuOpen) ? 1 : 0 }}
+                />
+                <Image
+                  src="/shared/logo-white.svg"
+                  alt="KabutoLab™"
+                  width={100}
+                  height={40}
+                  priority
+                  className="absolute inset-0 transition-opacity duration-500"
+                  style={{ opacity: menuOpen ? 1 : 0 }}
                 />
                 <Image
                   src="/shared/logo-icon.svg"
@@ -98,20 +100,29 @@ export default function Header() {
                   width={40}
                   height={40}
                   priority
-                  className={`absolute inset-0 object-contain object-left transition-opacity duration-500 ${
-                    isScrolled ? 'opacity-100' : 'opacity-0'
-                  }`}
+                  className="absolute left-0 top-0 transition-opacity duration-500"
+                  style={{ opacity: (isScrolled && !menuOpen) ? 1 : 0 }}
                 />
               </div>
-              
-              {/* Mobile: Always show icon */}
-              <div className="md:hidden">
+              {/* Mobile */}
+              <div className="md:hidden relative" style={{ width: '100px', height: '40px' }}>
                 <Image
                   src="/shared/logo-icon.svg"
                   alt="KabutoLab™"
                   width={40}
                   height={40}
                   priority
+                  className="absolute left-0 top-0 transition-opacity duration-500"
+                  style={{ opacity: !menuOpen ? 1 : 0 }}
+                />
+                <Image
+                  src="/shared/logo-white.svg"
+                  alt="KabutoLab™"
+                  width={100}
+                  height={40}
+                  priority
+                  className="absolute inset-0 transition-opacity duration-500"
+                  style={{ opacity: menuOpen ? 1 : 0 }}
                 />
               </div>
             </Link>
@@ -128,9 +139,7 @@ export default function Header() {
                         href={link.href}
                         aria-current={isActive ? "page" : undefined}
                         className={`font-medium transition-all duration-300 text-[15px] ${
-                          isActive 
-                            ? 'opacity-100' 
-                            : 'opacity-50 hover:opacity-100'
+                          isActive ? 'opacity-100' : 'opacity-50 hover:opacity-100'
                         }`}
                       >
                         {link.label}
@@ -141,23 +150,23 @@ export default function Header() {
               ) : (
                 <button
                   onClick={() => setDesktopMenuOpen(!desktopMenuOpen)}
-                  className="transition-colors font-medium text-[15px]"
+                  className="transition-colors font-medium text-[15px] underline"
                   aria-label={desktopMenuOpen ? "Close menu" : "Open menu"}
                   aria-expanded={desktopMenuOpen}
                 >
-                  <span>{desktopMenuOpen ? 'Close' : 'Menu'}</span>
+                  {desktopMenuOpen ? 'Close' : 'Menu'}
                 </button>
               )}
             </div>
 
-            {/* Mobile Hamburger */}
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="block md:hidden relative z-50"
+              className="block md:hidden relative z-50 font-medium text-[15px] underline"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              {mobileMenuOpen ? 'Close' : 'Menu'}
             </button>
           </nav>
         </div>
@@ -165,14 +174,13 @@ export default function Header() {
 
       {/* Full-Screen Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-[#030014] backdrop-blur-lg transition-all duration-500 ${
-          mobileMenuOpen || desktopMenuOpen
-            ? 'opacity-100 pointer-events-auto'
-            : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 bg-[#030014] backdrop-blur-lg transition-transform duration-700 ease-in-out ${
+          menuOpen ? 'translate-y-0' : '-translate-y-full'
         }`}
+        style={{ zIndex: 9999 }}
       >
-        <div className="flex flex-col justify-between h-full pt-24 pb-8 px-6 md:pt-32 md:px-16">
-          <nav className="flex flex-col gap-6 md:gap-8">
+        <div className="flex flex-col justify-center items-center h-full px-6 md:px-16">
+          <nav className="flex flex-col gap-8 md:gap-12 items-center">
             {navLinks.map((link, index) => {
               const isActive = pathname === link.href;
               return (
@@ -181,16 +189,13 @@ export default function Header() {
                   href={link.href}
                   onClick={closeAllMenus}
                   aria-current={isActive ? "page" : undefined}
-                  className={`text-4xl md:text-6xl font-medium transition-all duration-300 ${
-                    isActive 
-                      ? 'text-blue-400' 
-                      : 'text-white hover:text-blue-400'
+                  className={`text-6xl md:text-8xl font-bold transition-all duration-300 ${
+                    isActive ? 'text-blue-400' : 'text-white hover:text-blue-400'
                   }`}
                   style={{
-                    transitionDelay: `${index * 50}ms`,
-                    transform: (mobileMenuOpen || desktopMenuOpen) 
-                      ? 'translateY(0) opacity-1' 
-                      : 'translateY(20px) opacity-0'
+                    transitionDelay: menuOpen ? `${index * 80}ms` : '0ms',
+                    opacity: menuOpen ? 1 : 0,
+                    transform: menuOpen ? 'translateY(0)' : 'translateY(30px)'
                   }}
                 >
                   {link.label}
@@ -198,24 +203,6 @@ export default function Header() {
               );
             })}
           </nav>
-
-          <div className="flex gap-6 justify-center md:justify-start">
-            {socialLinks.map((social) => {
-              const Icon = social.icon;
-              return (
-                <a
-                  key={social.href}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white hover:text-blue-400 transition-colors"
-                  aria-label={social.label}
-                >
-                  <Icon size={28} />
-                </a>
-              );
-            })}
-          </div>
         </div>
       </div>
     </>

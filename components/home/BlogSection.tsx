@@ -7,7 +7,7 @@ export default function BlogSection() {
   const latestPosts = getAllPosts().slice(0, 2);
 
   return (
-    <section className="px-4 py-16 md:py-24 bg-white">
+    <section className="px-4 py-16 md:py-24 bg-black">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="flex items-center justify-between mb-12">
@@ -28,12 +28,13 @@ export default function BlogSection() {
           </Link>
         </div>
 
-        {/* Blog Cards Grid */}
+        {/* Blog Cards Grid - Fixed z-index */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {latestPosts.map((post) => (
             <article
               key={post.slug}
-              className="border border-white/20 rounded-lg overflow-hidden bg-black/50 backdrop-blur hover:border-white/60 transition-all duration-300 hover:scale-105 flex flex-col"
+              className="relative border border-white/20 rounded-lg overflow-hidden bg-black/50 backdrop-blur hover:border-white/60 transition-all duration-300 hover:scale-105 flex flex-col"
+              style={{ zIndex: 1 }}
             >
               {/* Featured Image */}
               {post.image && (
