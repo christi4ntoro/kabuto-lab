@@ -65,7 +65,6 @@ export default function Header() {
         }`}
         style={{ height: `${headerHeight}px` }}
       >
-        <div className="header-container">
           <nav className="h-full max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-between relative z-10">
             {/* Logo - Smooth crossfade */}
             <Link 
@@ -169,7 +168,6 @@ export default function Header() {
               {mobileMenuOpen ? 'Close' : 'Menu'}
             </button>
           </nav>
-        </div>
       </header>
 
       {/* Full-Screen Menu Overlay */}
