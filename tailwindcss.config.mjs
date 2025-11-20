@@ -6,14 +6,14 @@ const config = {
     ],
     theme: {
         extend: {
-        fontFamily: {
-            sans: ['var(--font-geist-sans)', 'sans-serif'],
-            mono: ['var(--font-geist-mono)', 'monospace'],
-            serif: ['var(--font-newsreader-serif)', 'serif'],
-        },
+            fontFamily: {
+                sans: ['var(--font-geist-sans)', 'sans-serif'],
+                mono: ['var(--font-geist-mono)', 'monospace'],
+                serif: ['var(--font-newsreader-serif)', 'serif'],
+            },
         },
     },
     plugins: [],
 };
 
-export default config;  
+export default config;

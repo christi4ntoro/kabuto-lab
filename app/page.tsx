@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="pt-[68px] md:pt-0 bg-black">
       <Hero />
-      <ProductScrollSection />
+      {/* <ProductScrollSection /> */}
       <Services />
       <BlogSection />
       <CTASection />
