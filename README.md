@@ -84,6 +84,7 @@ lib/
 public/
 ├── blog/
 ├── hero/
+├── products/
 └── shared/
 
 eslint.config.mjs
@@ -109,3 +110,26 @@ public/shared/
 ├── logo-vertical.svg           # Vertical/stacked layout
 ├── logo-wordmark.svg           # Text only, no icon
 └── logo-small.png              # Raster fallback if needed
+
+
+
+-----
+PRODUCTS MD STRUCTRE
+---
+name: "Product Name"
+price: 0
+category: "course" # Options: template, course, ebook, toolkit, service
+type: "free" # Options: free, paid, custom
+highlighted: true # true = shows on homepage
+benefit: "Short one-liner benefit"
+description: "Longer description for product page"
+image: "/products/your-image.jpg"
+buyUrl: "https://gumroad.com/your-link" # External purchase link
+features:
+  - "Feature 1"
+  - "Feature 2"
+  - "Feature 3"
+relatedProducts:
+  - "product-slug-1"
+  - "product-slug-2"
+---

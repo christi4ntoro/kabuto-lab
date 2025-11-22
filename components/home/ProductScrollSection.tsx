@@ -4,9 +4,19 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import ProductCard from '@/components/ui/ProductCard';
-import { products } from '@/lib/products';
 
-export default function ProductScrollSection() {
+interface ProductScrollSectionProps {
+  products: Array<{
+    slug: string;
+    name: string;
+    price: number;
+    benefit: string;
+    image: string;
+    type: 'free' | 'paid' | 'custom';
+  }>;
+}
+
+export default function ProductScrollSection({ products }: ProductScrollSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
@@ -16,12 +26,12 @@ export default function ProductScrollSection() {
 
   const x = useTransform(scrollYProgress, [0, 1], ['0%', '-66.666%']);
 
-  const displayProducts = products.slice(0, 6);
+  // Show all products passed (no slicing)
 
   return (
     <section 
       ref={containerRef} 
-      className="relative md:h-[300vh] bg-[#123456]"
+      className="relative md:h-[300vh] bg-[#0A0014]"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="flex h-full items-center">
@@ -31,17 +41,18 @@ export default function ProductScrollSection() {
             style={{ x }}
             className="hidden md:flex gap-6 px-8 will-change-transform"
           >
-            {displayProducts.map((product) => (
+            {products.map((product) => (
               <div 
-                key={product.id}
+                key={product.slug}
                 className="flex-shrink-0 w-[400px]"
               >
                 <ProductCard 
                   name={product.name}
                   price={product.price}
                   benefit={product.benefit}
-                  buyUrl={product.buyUrl}
+                  productUrl={`/products/${product.slug}`}
                   image={product.image}
+                  type={product.type}
                 />
               </div>
             ))}
@@ -63,17 +74,18 @@ export default function ProductScrollSection() {
           {/* Mobile: Horizontal scroll container */}
           <div className="md:hidden w-full overflow-x-auto scrollbar-hide">
             <div className="flex gap-4 px-4 pb-4">
-              {displayProducts.map((product) => (
+              {products.map((product) => (
                 <div 
-                  key={product.id}
+                  key={product.slug}
                   className="flex-shrink-0 w-[280px]"
                 >
                   <ProductCard 
                     name={product.name}
                     price={product.price}
                     benefit={product.benefit}
-                    buyUrl={product.buyUrl}
+                    productUrl={`/products/${product.slug}`}
                     image={product.image}
+                    type={product.type}
                   />
                 </div>
               ))}

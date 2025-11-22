@@ -1,19 +1,32 @@
+import Link from 'next/link';
 import Image from 'next/image';
 
 interface ProductCardProps {
   name: string;
   price: number;
   benefit: string;
-  buyUrl: string;
+  productUrl: string;
   image?: string;
+  type?: 'free' | 'paid' | 'custom'; // Add type prop
 }
 
-export default function ProductCard({ name, price, benefit, buyUrl, image }: ProductCardProps) {
+export default function ProductCard({ name, price, benefit, productUrl, image, type }: ProductCardProps) {
+  // Determine display based on type or price
+  const getPriceDisplay = () => {
+    if (type === 'custom') {
+      return <span className="text-blue-400">Contact Us</span>;
+    }
+    if (price === 0) {
+      return <span className="text-green-400">FREE</span>;
+    }
+    return <span className="text-green-400">€{price}</span>;
+  };
+
   return (
-    <article className="border border-white/20 rounded-lg overflow-hidden hover:border-white/60 transition-all duration-300 hover:scale-105 bg-black/50 backdrop-blur flex flex-col h-full">
+    <article className="rounded-[40px] overflow-hidden transition-all duration-300 hover:scale-105 bg-[#160078] flex flex-col h-full p-3">
       {/* Image - only show if provided */}
       {image && (
-        <div className="relative w-full aspect-video bg-neutral-900">
+        <div className="rounded-[36px] overflow-hidden relative w-full h-64 bg-[#160078]">
           <Image
             src={image}
             alt={name}
@@ -25,25 +38,28 @@ export default function ProductCard({ name, price, benefit, buyUrl, image }: Pro
       )}
 
       {/* Content */}
-      <div className="p-8 flex flex-col flex-grow">
-        <h3 className="text-2xl font-bold mb-3 hover:text-blue-400 transition-colors">
-          {name}
-        </h3>
-        
-        <p className="text-6xl font-black mb-6 text-green-400">
-          €{price}
-        </p>
-        
-        <p className="text-gray-300 mb-8 text-lg flex-grow">
-          {benefit}
-        </p>
+      <div className='p-4 flex flex-col flex-grow'>
+        <div className="flex flex-col flex-grow">
+          <h3 className="text-2xl font-bold mb-3">
+            {name}
+          </h3>
+          <p className="text-gray-300 mb-8 text-lg flex-grow truncate">
+            {benefit}
+          </p>
+        </div>
 
-        <a 
-          href={buyUrl}
-          className="block w-full bg-white text-black py-4 text-center font-bold rounded-lg hover:bg-blue-400 hover:text-white transition-all transform hover:-translate-y-1 hover:shadow-xl mt-auto"
-        >
-          Get Now →
-        </a>
+        <div className="flex flex-row flex-grow justify-between items-center">  
+          <p className="text-3xl font-black">
+            {getPriceDisplay()}
+          </p>
+
+          <Link 
+            href={productUrl}
+            className="block bg-white hover:bg-blue-400 text-black hover:text-white p-4 text-center font-bold rounded-full transition-all transform hover:-translate-y-1 hover:shadow-xl mt-auto"
+          >
+            Get Now
+          </Link>
+        </div>
       </div>
     </article>
   );
