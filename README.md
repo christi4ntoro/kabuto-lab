@@ -49,6 +49,12 @@ app/
 ├── contact/
 │   └── page.tsx
 ├── products/
+│   ├── [slug]/
+│   │   └── page.tsx
+│   └── page.tsx
+├── tutorials/
+│   ├── [slug]/
+│   │   └── page.tsx
 │   └── page.tsx
 ├── favincon.ico
 ├── globals.css
@@ -61,24 +67,37 @@ components/
 │   ├── CTASection.tsx
 │   ├── Hero.tsx
 │   ├── ProductScrollSection.tsx
+│   ├── ProductScrollWrapper.tsx
 │   └── Services.tsx
+├── products/
+│   └── ProductsClient.tsx
 ├── shared/
 │   ├── Footer.tsx
 │   └── Header.tsx
 ├── ui/
 │   ├── ProductCard.tsx
 │   └── ServiceCard.tsx
+│   └── TutorialCard.tsx
 └── page.tsx
 
 content/
 └── blog/
-    ├── first-post.md
-    └── second-post.md
+│   ├── first-post.md
+│   └── second-post.md
+└── products/
+│   ├── first-product.md
+│   ├── second-product.md
+│   ├── third-product.md
+│   ├── fouth-product.md
+│   └── fifth-product.md
+└── tutorials/
+    └── first-tutorial.md
 
 lib/
 ├── blog.ts
 ├── cta.ts
 ├── products.ts
+├── productUtils.ts
 └── services.ts
 
 public/
@@ -88,13 +107,15 @@ public/
 └── shared/
 
 eslint.config.mjs
+next-env.d.ts
 next.config.mjs
 package-lock.json
 package.json
 pstcss.config.mjs
 README.md
-tsconfig.json
 tailwind.config.mjs
+tsconfig.json
+tsconfig.tsbuilinfo
 
 ------------
 

@@ -3,6 +3,8 @@ name: "Immersion Bootcamp"
 price: 147
 category: "course"
 type: "paid"
+highlighted: false
+published: false
 benefit: "Your intensive training in effective immersive design—3 hours to transformation"
 description: "Stop building immersive experiences that don't work. This 3-hour bootcamp teaches you why immersive training fails and how to build experiences that achieve 80% retention using proven methodology."
 image: "/products/immersion-bootcamp.jpg"

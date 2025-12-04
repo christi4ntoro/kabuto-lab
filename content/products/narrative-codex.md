@@ -3,6 +3,8 @@ name: "The Narrative Codex"
 price: 47
 category: "ebook"
 type: "paid"
+highlighted: false
+published: false
 benefit: "Your storytelling bible for immersive experiences"
 description: "Transform your immersive experiences with proven storytelling techniques. This codex applies animation and comic principles to VR/AR/XR design, giving you visual storytelling, pacing, and character design tools that work across any medium."
 image: "/products/narrative-codex.jpg"

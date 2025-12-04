@@ -3,6 +3,8 @@ name: "The Creator's Arsenal"
 price: 197
 category: "digital"
 type: "paid"
+highlighted: false
+published: false
 benefit: "Your complete toolkit for rapid immersive creation across any platform"
 description: "Everything you need to build immersive experiences fast. Figma storyboard system, Notion project hub, measurement frameworks, and video tutorials—all optimized for VR, AR, and AI experiences."
 image: "/products/creators-arsenal.jpg"

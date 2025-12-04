@@ -3,6 +3,8 @@ name: "The XR Launch Kit"
 price: 67
 category: "templates"
 type: "paid"
+highlighted: false
+published: false
 benefit: "Your launchpad for any immersive project—start building in 30 minutes"
 description: "Stop wrestling with Unity setup. This pre-configured project gives you XR Interaction Toolkit, basic interactions, commented code, and everything you need to start building immersive experiences immediately."
 image: "/products/xr-launch-kit.jpg"

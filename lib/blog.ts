@@ -13,6 +13,7 @@ export interface BlogPost {
   excerpt: string;
   content: string;
   image?: string; // Add featured image
+  published?: boolean; // NEW: For hiding posts in development
 }
 
 export function getAllPosts(): BlogPost[] {
@@ -32,9 +33,11 @@ export function getAllPosts(): BlogPost[] {
         date: data.date,
         excerpt: data.excerpt,
         image: data.image, // Extract image from frontmatter
+        published: data.published !== false, // NEW: Defaults to true if not specified
         content,
       };
-    });
+    })
+    .filter(post => post.published !== false); // NEW: Filter out unpublished posts
   
   // Sort by date, newest first
   return posts.sort((a, b) => (a.date > b.date ? -1 : 1));
@@ -51,6 +54,7 @@ export function getPostBySlug(slug: string): BlogPost {
     date: data.date,
     excerpt: data.excerpt,
     image: data.image, // Extract image from frontmatter
+    published: data.published !== false, // NEW: Defaults to true if not specified
     content,
   };
 }

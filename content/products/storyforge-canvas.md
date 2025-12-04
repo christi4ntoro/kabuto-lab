@@ -3,6 +3,8 @@ name: "Storyforge Canvas"
 price: 0
 category: "tools"
 type: "free"
+highlighted: false
+published: false
 benefit: "Your narrative mapping tool for forging immersive scenarios"
 description: "Transform any learning objective into a compelling immersive story. This Figma template helps you map decision nodes, emotional arcs, and visual story structure in minutes."
 image: "/products/storyforge-canvas.jpg"

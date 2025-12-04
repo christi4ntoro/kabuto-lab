@@ -4,6 +4,7 @@ price: 97
 category: "digital"
 type: "paid"
 highlighted: true
+published: true
 benefit: "The full methodology used to achieve 80% retention across 22,000 learners"
 description: "The complete 50-page system for designing immersive training that transforms behavior. Based on University of Lisbon research, works across VR, AR, spatial computing, and conversational AI."
 image: "/products/complete-immersion-system.jpg"

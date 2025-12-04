@@ -3,6 +3,8 @@ name: "Open Training Core"
 price: 0
 category: "tools"
 type: "free"
+highlighted: false
+published: false
 benefit: "Your course foundation for building interactive training"
 description: "Start building interactive courses without expensive platforms. This open-source template gives you navigation, quizzes, progress tracking, and SCORM compatibility out of the box."
 image: "/products/open-training-core.jpg"

@@ -3,6 +3,8 @@ name: "The Scenario Vault"
 price: 67
 category: "templates"
 type: "paid"
+highlighted: false
+published: false
 benefit: "Your scenario treasure chest—10 complete story structures ready to customize"
 description: "Stop starting from scratch. These 10 pre-designed scenario structures give you complete story outlines, decision trees, and emotional arcs for Emergency Response, Clinical Decision, Safety Training, and more."
 image: "/products/scenario-vault.jpg"

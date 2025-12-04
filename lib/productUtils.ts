@@ -13,6 +13,7 @@ export interface ProductMeta {
   category: 'template' | 'course' | 'ebook' | 'toolkit' | 'service';
   type: 'free' | 'paid' | 'custom'; // custom = contact for pricing
   highlighted: boolean; // For homepage
+  published?: boolean; // NEW: For hiding products in development
   benefit: string;
   description: string;
   features: string[];
@@ -35,7 +36,8 @@ export function getAllProducts(): ProductMeta[] {
     .map(fileName => {
       const slug = fileName.replace(/\.md$/, '');
       return getProductBySlug(slug);
-    });
+    })
+    .filter(product => product.published !== false); // NEW: Filter out unpublished products
   
   // Sort by price (free first, then ascending)
   return products.sort((a, b) => {
@@ -57,6 +59,7 @@ export function getProductBySlug(slug: string): ProductMeta {
     category: data.category,
     type: data.type || (data.price === 0 ? 'free' : 'paid'),
     highlighted: data.highlighted || false,
+    published: data.published !== false, // NEW: Defaults to true if not specified
     benefit: data.benefit,
     description: data.description,
     features: data.features || [],

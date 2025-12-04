@@ -3,6 +3,8 @@ name: "Impact Tracker"
 price: 0
 category: "tools"
 type: "free"
+highlighted: false
+published: false
 benefit: "Your results dashboard for measuring training impact"
 description: "Stop guessing if your training works. These Google Sheets + Forms templates automatically track learning outcomes, retention rates, and behavior change across any immersive platform."
 image: "/products/impact-tracker.jpg"

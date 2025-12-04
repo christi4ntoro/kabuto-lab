@@ -3,7 +3,8 @@ name: "Immersion Starter Kit"
 price: 0
 category: "starter"
 type: "free"
-highlighted: true
+highlighted: false
+published: false
 benefit: "Your first step into immersive design with 10 pages of actionable guidance"
 description: "Get started building immersive experiences that actually work. This quick-start guide walks you through the core principles used to achieve 80% retention across 22,000 learners."
 image: "/products/immersion-starter-kit.jpg"
