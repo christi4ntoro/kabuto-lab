@@ -3,6 +3,7 @@ import { Geist, JetBrains_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/Header";
 import Footer from '@/components/shared/Footer';
+import GoogleAnalytics from '@/components/shared/GoogleAnalytics';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +48,11 @@ export default function RootLayout({
         
         {/* Footer stays fixed underneath */}
         <Footer />
+
+        {/* Google Analytics - Only loads in production */}
+        {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
       </body>
     </html>
   );
