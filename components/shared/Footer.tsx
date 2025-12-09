@@ -16,7 +16,8 @@ const menuCompany = [
   { label: 'What We Do', href: '/services' },
   { label: 'About', href: '/about' },
   { label: 'Cases', href: '/work' },
-  { label: 'Connect', href: '/contact' }
+  { label: 'Connect', href: '/contact' },
+  { label: 'Privacy', href: '/privacy' }
 ];
 
 const menuProducts = [

@@ -73,6 +73,7 @@ components/
 │   └── ProductsClient.tsx
 ├── shared/
 │   ├── Footer.tsx
+│   ├── GoogleAnalytics.tsx
 │   └── Header.tsx
 ├── ui/
 │   ├── ProductCard.tsx

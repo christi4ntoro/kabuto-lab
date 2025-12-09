@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/shared/Header";
 import Footer from '@/components/shared/Footer';
 import GoogleAnalytics from '@/components/shared/GoogleAnalytics';
+import CookieConsent from '@/components/shared/CookieConsent';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,6 +54,9 @@ export default function RootLayout({
         {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         )}
+
+        {/* Cookie Consent Banner */}
+        <CookieConsent />
       </body>
     </html>
   );
