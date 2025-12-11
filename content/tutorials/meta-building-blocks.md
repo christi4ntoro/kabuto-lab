@@ -1,8 +1,8 @@
 ---
 title: "Meta Building Blocks"
 description: "Learn the core principles of designing immersive experiences for VR, AR, and spatial computing"
-duration: "25min 08sec"
-lessons: 5
+duration: "30min 49sec"
+lessons: 6
 level: "beginner"
 category: "design"
 tags: ["VR", "UX", "Spatial Design", "Beginner-Friendly"]
@@ -34,48 +34,9 @@ videos:
     title: "Lesson 5: Hand Tracking"
     duration: "3:29"
     thumbnail: "tutorials/mbb/lesson1.jpg"
+  - id: "FWBeRqDaLTI"
+    title: "Lesson 6: Haptics"
+    duration: "5:41"
+    thumbnail: "tutorials/mbb/lesson1.jpg"
 ---
 
-## What You'll Learn
-
-This free tutorial series covers the fundamentals of designing immersive experiences. By the end, you'll understand:
-
-- Core principles of spatial interaction design
-- How to create intuitive navigation in 3D spaces
-- User comfort and accessibility considerations
-- Prototyping workflows for VR/AR projects
-- Measuring effectiveness of immersive experiences
-
-## Course Outline
-
-### Module 1: Introduction to Immersive Design
-- What makes immersive experiences different
-- Key design principles
-- Tools and platforms overview
-
-### Module 2: Spatial User Experience
-- 3D interaction patterns
-- Navigation systems
-- Comfort and motion sickness prevention
-
-### Module 3: Prototyping Workflows
-- From concept to prototype
-- Testing with users
-- Iterating based on feedback
-
-### Module 4: Measuring Success
-- Defining metrics
-- User testing methods
-- Data collection and analysis
-
-## Prerequisites
-
-- Basic understanding of UX design principles
-- No coding experience required
-- No VR headset needed (though helpful)
-
-## Ready for More?
-
-This tutorial gives you the fundamentals. Want the complete methodology with worksheets, templates, and real-world case studies?
-
-Check out **The Complete Immersion System** - the full 50-page framework used to achieve 80% retention across 22,000 learners.
