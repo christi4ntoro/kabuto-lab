@@ -2,6 +2,27 @@ import { getTutorialBySlug, getAllTutorials, markdownToHtml } from '@/lib/tutori
 import CustomVideoPlayer from '@/components/tutorials/CustomVideoPlayer';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const tutorial = getTutorialBySlug(slug);
+    return {
+      title: tutorial.title,
+      description: tutorial.description,
+      openGraph: {
+        title: tutorial.title,
+        description: tutorial.description,
+        images: tutorial.thumbnail ? [tutorial.thumbnail] : [],
+      },
+    };
+  } catch {
+    return { title: 'Tutorial not found | Kabuto Lab' };
+  }
+}
 
 export async function generateStaticParams() {
   const tutorials = getAllTutorials();

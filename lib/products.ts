@@ -1,3 +1,4 @@
+// DEPRECATED - migrate consumers to productUtils.ts, do not add new products here
 export interface Product {
   id: string;
   name: string;

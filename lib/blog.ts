@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import { blogFrontmatterSchema } from '@/lib/schemas';
 
 const postsDirectory = path.join(process.cwd(), 'content/blog');
 
@@ -26,14 +27,20 @@ export function getAllPosts(): BlogPost[] {
       const fullPath = path.join(postsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContents);
-      
+      let fm;
+      try {
+        fm = blogFrontmatterSchema.parse(data);
+      } catch (e) {
+        throw new Error(`Invalid frontmatter in ${slug}: ${(e as Error).message}`);
+      }
+
       return {
         slug,
-        title: data.title,
-        date: data.date,
-        excerpt: data.excerpt,
-        image: data.image, // Extract image from frontmatter
-        published: data.published !== false, // NEW: Defaults to true if not specified
+        title: fm.title,
+        date: fm.date,
+        excerpt: fm.excerpt,
+        image: fm.image,
+        published: fm.published,
         content,
       };
     })
@@ -47,14 +54,20 @@ export function getPostBySlug(slug: string): BlogPost {
   const fullPath = path.join(postsDirectory, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
-  
+  let fm;
+  try {
+    fm = blogFrontmatterSchema.parse(data);
+  } catch (e) {
+    throw new Error(`Invalid frontmatter in ${slug}: ${(e as Error).message}`);
+  }
+
   return {
     slug,
-    title: data.title,
-    date: data.date,
-    excerpt: data.excerpt,
-    image: data.image, // Extract image from frontmatter
-    published: data.published !== false, // NEW: Defaults to true if not specified
+    title: fm.title,
+    date: fm.date,
+    excerpt: fm.excerpt,
+    image: fm.image,
+    published: fm.published,
     content,
   };
 }

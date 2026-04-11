@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import { tutorialFrontmatterSchema } from '@/lib/schemas';
 
 const tutorialsDirectory = path.join(process.cwd(), 'content/tutorials');
 
@@ -59,22 +60,28 @@ export function getTutorialBySlug(slug: string): TutorialMeta {
   const fullPath = path.join(tutorialsDirectory, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
-  
+  let fm;
+  try {
+    fm = tutorialFrontmatterSchema.parse(data);
+  } catch (e) {
+    throw new Error(`Invalid frontmatter in ${slug}: ${(e as Error).message}`);
+  }
+
   return {
     slug,
-    title: data.title,
-    description: data.description,
-    duration: data.duration,
-    lessons: data.lessons,
-    level: data.level,
-    category: data.category,
-    tags: data.tags || [],
-    published: data.published !== false,
-    featured: data.featured || false,
-    thumbnail: data.thumbnail,
-    youtubePlaylistId: data.youtubePlaylistId,
-    videos: data.videos || [], // NEW: Read videos array
-    relatedProducts: data.relatedProducts || [],
+    title: fm.title,
+    description: fm.description,
+    duration: fm.duration,
+    lessons: fm.lessons,
+    level: fm.level,
+    category: fm.category,
+    tags: fm.tags,
+    published: fm.published,
+    featured: fm.featured,
+    thumbnail: fm.thumbnail,
+    youtubePlaylistId: fm.youtubePlaylistId ?? '',
+    videos: fm.videos,
+    relatedProducts: fm.relatedProducts,
     content,
   };
 }

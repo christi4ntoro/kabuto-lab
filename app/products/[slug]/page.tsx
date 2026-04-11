@@ -3,6 +3,27 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getProductBySlug, getAllProducts, getRelatedProducts, markdownToHtml } from '@/lib/productUtils';
 import ProductCard from '@/components/ui/ProductCard';
+import type { Metadata } from 'next';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const product = getProductBySlug(slug);
+    return {
+      title: product.name,
+      description: product.description,
+      openGraph: {
+        title: product.name,
+        description: product.description,
+        images: product.image ? [product.image] : [],
+      },
+    };
+  } catch {
+    return { title: 'Product not found | Kabuto Lab' };
+  }
+}
 
 // This generates the static paths for all products
 export async function generateStaticParams() {

@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import { productFrontmatterSchema } from '@/lib/schemas';
 
 const productsDirectory = path.join(process.cwd(), 'content/products');
 
@@ -51,21 +52,27 @@ export function getProductBySlug(slug: string): ProductMeta {
   const fullPath = path.join(productsDirectory, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
-  
+  let fm;
+  try {
+    fm = productFrontmatterSchema.parse(data);
+  } catch (e) {
+    throw new Error(`Invalid frontmatter in ${slug}: ${(e as Error).message}`);
+  }
+
   return {
     slug,
-    name: data.name,
-    price: data.price || 0,
-    category: data.category,
-    type: data.type || (data.price === 0 ? 'free' : 'paid'),
-    highlighted: data.highlighted || false,
-    published: data.published !== false, // NEW: Defaults to true if not specified
-    benefit: data.benefit,
-    description: data.description,
-    features: data.features || [],
-    buyUrl: data.buyUrl,
-    image: data.image,
-    relatedProducts: data.relatedProducts || [],
+    name: fm.name,
+    price: fm.price,
+    category: fm.category as ProductMeta['category'],
+    type: fm.type,
+    highlighted: fm.highlighted,
+    published: fm.published,
+    benefit: fm.benefit ?? '',
+    description: fm.description,
+    features: fm.features,
+    buyUrl: fm.buyUrl,
+    image: fm.image,
+    relatedProducts: fm.relatedProducts,
     content,
   };
 }

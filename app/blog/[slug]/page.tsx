@@ -1,5 +1,26 @@
 import { getPostBySlug, markdownToHtml, getAllPosts } from '@/lib/blog';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const post = getPostBySlug(slug);
+    return {
+      title: post.title,
+      description: post.excerpt,
+      openGraph: {
+        title: post.title,
+        description: post.excerpt,
+        images: post.image ? [post.image] : [],
+      },
+    };
+  } catch {
+    return { title: 'Post not found | Kabuto Lab' };
+  }
+}
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
