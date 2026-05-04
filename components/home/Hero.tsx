@@ -89,40 +89,30 @@ export default function Hero() {
           }}
         />
 
-        {/* Human silhouette */}
-        <div 
-          className="absolute inset-0 w-full h-full pointer-events-none opacity-48"
-          style={{
-            backgroundImage: 'url("/hero/wave.png")',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        />
-
         {/* Content */}
         <div className="relative h-full flex items-center justify-center px-4 z-10">
           <div className="text-center max-w-4xl">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl mb-4 sm:mb-6 text-white md:pt-16">
-              <span className="font-serif italic">Human-Centered.</span><br></br><span className='font-bold'>Future-Forward.</span>
+              <span className="font-serif italic">Interaction Design.</span><br></br><span className='font-bold'>HCI Research. Making.</span>
               {/* <span className="font-serif italic">Prototype</span><br></br><span className='font-bold'>Lab.</span> */}
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-6 sm:mb-8">
-              Research-driven frameworks for immersive experiences. Full custom design from concept to deployment.
+              A practice at the intersection of human behavior, immersive technology, and AI systems.
               {/* Personal R&D workspace for scalable patterns */}
             </p>
             {/* Buttons Container */}
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
               <Link 
-                href="/products"
+                href="/systems"
                 className="inline-block bg-white text-black px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-200 text-center"
               >
-                Access the System
+                See the Work
               </Link>
               <Link 
-                href="/contact"
+                href="/connect"
                 className="inline-block bg-white text-black px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-200 text-center"
               >
-                Call Me
+                Get in touch
               </Link>
             </div>
           </div>

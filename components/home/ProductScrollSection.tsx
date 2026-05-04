@@ -50,7 +50,7 @@ export default function ProductScrollSection({ products }: ProductScrollSectionP
                   name={product.name}
                   price={product.price}
                   benefit={product.benefit}
-                  productUrl={`/products/${product.slug}`}
+                  productUrl={`/systems/${product.slug}`}
                   image={product.image}
                   type={product.type}
                 />
@@ -63,7 +63,7 @@ export default function ProductScrollSection({ products }: ProductScrollSectionP
                 Explore All Products
               </h3>
               <Link 
-                href="/products"
+                href="/systems"
                 className="px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 transition-colors"
               >
                 View Collection
@@ -83,7 +83,7 @@ export default function ProductScrollSection({ products }: ProductScrollSectionP
                     name={product.name}
                     price={product.price}
                     benefit={product.benefit}
-                    productUrl={`/products/${product.slug}`}
+                    productUrl={`/systems/${product.slug}`}
                     image={product.image}
                     type={product.type}
                   />
@@ -96,7 +96,7 @@ export default function ProductScrollSection({ products }: ProductScrollSectionP
                   View All
                 </h3>
                 <Link 
-                  href="/products"
+                  href="/systems"
                   className="px-6 py-3 bg-white text-black font-semibold"
                 >
                   Products

@@ -103,7 +103,7 @@ export default function ProductsClient({ products }: ProductsClientProps) {
               name={product.name}
               price={product.price}
               benefit={product.benefit}
-              productUrl={`/products/${product.slug}`}
+              productUrl={`/systems/${product.slug}`}
               image={product.image}
               type={product.type}
             />

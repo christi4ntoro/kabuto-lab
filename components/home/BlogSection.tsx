@@ -4,24 +4,24 @@ import { getAllPosts } from '@/lib/blog';
 
 export default function BlogSection() {
   // Get latest 2 posts
-  const latestPosts = getAllPosts().slice(0, 2);
+  const latestPosts = getAllPosts().slice(0, 3);
 
   return (
-    <section className="px-4 py-16 md:py-24 bg-black">
+    <section className="px-4 py-16 md:py-24 bg-[--background]">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="flex items-center justify-between mb-12">
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">
-              Latest Insights
+            <h2 className="text-4xl md:text-5xl font-bold text-[--foreground] mb-2">
+              Transmissions
             </h2>
             <p className="text-lg text-gray-400">
-              Thoughts on immersive design and experience creation
+              Research notes, build logs, and releases
             </p>
           </div>
           
           <Link
-            href="/blog"
+            href="/transmissions"
             className="hidden md:inline-block text-blue-400 hover:text-blue-300 font-bold transition-colors"
           >
             View All →
@@ -38,7 +38,7 @@ export default function BlogSection() {
             >
               {/* Featured Image */}
               {post.image && (
-                <Link href={`/blog/${post.slug}`} className="block">
+                <Link href={`/transmissions/${post.slug}`} className="block">
                   <div className="relative w-full aspect-video bg-neutral-900">
                     <Image
                       src={post.image}
@@ -63,8 +63,8 @@ export default function BlogSection() {
                 </time>
 
                 {/* Title */}
-                <Link href={`/blog/${post.slug}`}>
-                  <h3 className="text-2xl font-bold text-white mb-3 hover:text-blue-400 transition-colors">
+                <Link href={`/transmissions/${post.slug}`}>
+                  <h3 className="text-2xl font-bold text-[--foreground] mb-3 hover:text-blue-400 transition-colors">
                     {post.title}
                   </h3>
                 </Link>
@@ -76,7 +76,7 @@ export default function BlogSection() {
 
                 {/* Read More Link */}
                 <Link
-                  href={`/blog/${post.slug}`}
+                  href={`/transmissions/${post.slug}`}
                   className="inline-block text-blue-400 hover:text-blue-300 font-bold transition-colors"
                 >
                   Read Article →
@@ -89,7 +89,7 @@ export default function BlogSection() {
         {/* Mobile View All Button */}
         <div className="mt-8 text-center md:hidden">
           <Link
-            href="/blog"
+            href="/transmissions"
             className="inline-block bg-white text-black px-6 py-3 font-bold rounded-lg hover:bg-blue-400 hover:text-white transition-all"
           >
             View All Articles →

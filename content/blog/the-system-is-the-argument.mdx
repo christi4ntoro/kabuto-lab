@@ -1,0 +1,82 @@
+---
+title: "The System Is the Argument: Skincare & Wellness App"
+date: "2024-01-01"
+excerpt: "A four-pillar wellness hub with a design system built entirely from scratch — because pre-built systems carry someone else's assumptions. Twelve years of systems thinking, applied to a commercial product under real constraints."
+image: "/blog/the-system-is-the-argument/the-system-is-the-argument.webp"
+published: true
+tags: [work]
+lang: en
+client: "Kala"
+team: "1 PM, 1 designer (lead), 4 developers"
+duration: "6 months"
+tools: ["Figma", "Google Docs"]
+discipline: ["Interaction Design", "UI Design", "Design Systems"]
+---
+
+## The Problem
+
+The client came in with a focused idea: a tool that lets users log their skincare routine with photos. Simple, personal, contained. What the discovery process revealed was that this assumption was just the surface of something much larger.
+
+KALA was meant to be a hub: a platform connecting users with beauty and health professionals, sponsoring product brands, and guiding people through complete, structured skincare processes. Four pillars had to coexist and feel like one product: product discovery and acquisition, professional appointments, community engagement, and routine tracking. The brief hadn't caught up with the ambition yet, and the design work had to close that gap.
+
+## My Role
+
+**Senior UI/UX Designer, lead and sole designer on the project.**
+
+Over six months I ran the full design lifecycle: discovery and UX research, user flows, wireframes, high-fidelity screens, and a complete atomic design system. I worked directly with the PM and collaborated in ongoing feedback loops with four developers throughout the handoff process.
+
+*This project was delivered through a third-party platform that has since ceased operations. The design work and system were completed and handed off in full.*
+
+## Constraints
+
+- **No direct user access at the start.** The first month was spent in UX research: mapping pain points and goals through stakeholder-mediated data before any screen was designed.
+- **The client had no prior UX culture.** Timelines and projections didn't account for research. Establishing its value was part of the work.
+- **Platform development framework constraints.** The design system had to integrate into the client platform's development infrastructure, which shaped how components and tokens were structured.
+- **iOS only.** All interaction patterns, touch targets, and component behaviour were scoped to the App Store platform.
+- **Medical-adjacent content.** Several interface decisions touched on health guidance and professional recommendations; clarity and simplicity weren't aesthetic choices here, they were requirements.
+
+## Design Decisions
+
+### The system had to be built from scratch, and that was the right call
+
+The first instinct was to adapt a pre-built system. It would have been faster. But every mature system, Material, Ant, Carbon, carries its own opinions about hierarchy, spacing, interaction density, and visual language. KALA's data model didn't fit those opinions. The four pillars generated component needs that didn't map cleanly to any existing library: the way product cards needed to behave alongside appointment slots, the way routine tracking components had to sit next to community content, the relationship between health data display and promotional material. Adapting a foreign system would have meant fighting it constantly. Building from scratch meant the components served the product's actual logic, not the other way around.
+
+The system was built atomically: typography foundations, color tokens, buttons, modals, chips, breadcrumbs, with design tokens documented for the development framework. Every layer in Figma followed a consistent naming convention mirrored in the Google Docs handoff documentation, so developers could navigate both environments without a design translator in the room.
+
+### Onboarding: kill the form, build the profile over time
+
+The client's original plan required users to fill out an extensive profile upfront: skin type, concerns, goals, history. The UX research made clear this was a conversion killer before the app had a chance to prove its value.
+
+The decision was to move authentication to Google and Apple Sign-In, removing the data-entry barrier entirely. The skin profile was redesigned as a progressive system: the app builds its understanding of the user over time through actual usage; routines logged, appointments booked, products engaged with. Users opt into more context as trust is established, rather than being asked to prove their commitment before they've experienced anything.
+
+### Home screen: lead with what you can buy and who you can talk to
+
+UX research surfaced a clear priority order. Users wanted to see product recommendations first, then community content, then professional appointments, and finally their active routine. This was counterintuitive to the client's original framing. They assumed routine tracking was the core. The research said otherwise: users came to KALA to discover and connect, not primarily to log. The home screen hierarchy was restructured to reflect that.
+
+### Interface as simplification layer for complex content
+
+Several content decisions were governed by medical and professional considerations outside the designer's domain. The UX contribution there wasn't to make those decisions; it was to make whatever was decided legible. Reducing cognitive load, establishing clear visual hierarchy between guidance content and promotional content, and making the path from "I need help with X" to "here is a professional who can help" as frictionless as possible. The system had to be flexible enough to carry medically-adjacent content without looking clinical, and commercially-driven content without looking predatory.
+
+## What I'd Do Differently
+
+The biggest gap was the absence of usability testing before handoff. The UX research shaped the flows well, but there was no validation round with real users on the high-fidelity prototype. Given another run at this project, I'd push for at least one round of moderated testing, even five sessions, before the design system went into development. A custom-built system is an investment, and testing before build is cheaper than retrofitting after it.
+
+I'd also establish clearer ownership of the progressive profile logic earlier. Designing the system is one thing; deciding the rules for *when* and *how* the profile grows required ongoing alignment between design, product, and the health professionals involved. That conversation happened reactively. It should have been a defined workstream from week one.
+
+## Outcome
+
+Six months of work delivered:
+
+- A **complete atomic design system**: components, tokens, and documentation, integrated into the development framework and ready for handoff.
+- **Full high-fidelity screen coverage** across all four pillars: product discovery, appointments, community, and routine tracking.
+- A **progressive onboarding flow** replacing a high-friction upfront form with social authentication and time-based profile building.
+- A **home screen architecture** grounded in research, prioritising discovery and community over the client's original assumption.
+- **Cross-functional documentation** in Google Docs covering every screen, component, interaction, and Figma layer naming convention, enabling the four-person dev team to implement without design-side clarification bottlenecks.
+
+The design was handed off on schedule. What happened in development after that is outside my visibility.
+
+## Transferable Insight
+
+A design system built from scratch isn't a vanity project; it's a structural argument. When a product has four distinct pillars that need to feel like one experience, the system *is* the product logic made visible. Pre-built systems carry someone else's assumptions about hierarchy and interaction. If your product's data model doesn't match those assumptions, you'll spend the whole project arguing with the library instead of solving the actual problem.
+
+Build from scratch when the product is genuinely unique in structure. Adapt when it isn't. The skill is knowing the difference before you start.

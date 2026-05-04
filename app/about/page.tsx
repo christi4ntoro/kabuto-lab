@@ -1,6 +1,6 @@
 export default function AboutPage() {
     return (
-      <div className="min-h-screen bg-black text-white p-8 pt-[68px]">
+      <div className="min-h-screen bg-[--background] text-[--foreground] p-8 pt-[68px]">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-6xl font-bold mb-8">About Kabuto Lab</h1>
           
@@ -28,7 +28,7 @@ export default function AboutPage() {
               Started by designers who got tired of reinventing the wheel on every project.
             </p>
   
-            <p className="text-2xl font-bold text-white mt-12">
+            <p className="text-2xl font-bold text-[--foreground] mt-12">
               Let's build better immersive experiences together.
             </p>
           </div>

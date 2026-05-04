@@ -9,24 +9,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     '/',
     '/about',
-    '/contact',
-    '/products',
+    '/work',
+    '/transmissions',
+    '/systems',
     '/tutorials',
-    '/blog',
   ].map((route) => ({
     url: `${BASE_URL}${route}`,
     lastModified: new Date(),
   }));
 
   const posts = getAllPosts().filter((post) => post.published !== false);
-  const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${BASE_URL}/blog/${post.slug}`,
+  const transmissionRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${BASE_URL}/transmissions/${post.slug}`,
     lastModified: post.date ? new Date(post.date) : new Date(),
   }));
 
   const products = getAllProducts().filter((product) => product.published !== false);
-  const productRoutes: MetadataRoute.Sitemap = products.map((product) => ({
-    url: `${BASE_URL}/products/${product.slug}`,
+  const systemRoutes: MetadataRoute.Sitemap = products.map((product) => ({
+    url: `${BASE_URL}/systems/${product.slug}`,
     lastModified: new Date(),
   }));
 
@@ -36,5 +36,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  return [...staticRoutes, ...blogRoutes, ...productRoutes, ...tutorialRoutes];
+  return [...staticRoutes, ...transmissionRoutes, ...systemRoutes, ...tutorialRoutes];
 }

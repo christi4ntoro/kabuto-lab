@@ -10,7 +10,7 @@ export const ctaContent: Cta = {
   heading: "Ready to Transform Your Design?",
   subtext: "Join 500+ immersive designers creating unforgettable experiences",
   buttonText: "Get Started",
-  buttonUrl: "/products"
+  buttonUrl: "/systems"
 };
 
 // Markup configuration for JSX formatting (to be used in components)

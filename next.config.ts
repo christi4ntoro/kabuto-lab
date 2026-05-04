@@ -1,6 +1,29 @@
 import type { NextConfig } from "next";
+import createMDX from '@next/mdx';
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+        ],
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      { source: '/blog', destination: '/transmissions', permanent: true },
+      { source: '/blog/:slug', destination: '/transmissions/:slug', permanent: true },
+      { source: '/products', destination: '/systems', permanent: true },
+      { source: '/products/:slug', destination: '/systems/:slug', permanent: true },
+      { source: '/contact', destination: '/connect', permanent: true },
+    ];
+  },
   webpack: (config, { isServer }) => {
     // Add markdown files to the watch list
     if (!isServer) {
@@ -13,4 +36,5 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withMDX = createMDX({});
+export default withMDX(nextConfig);

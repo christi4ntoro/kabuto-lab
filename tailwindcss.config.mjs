@@ -8,7 +8,7 @@ const config = {
         extend: {
             fontFamily: {
                 sans: ['var(--font-geist-sans)', 'sans-serif'],
-                mono: ['var(--font-geist-mono)', 'monospace'],
+                mono: ['var(--font-jetbrains-mono)', 'monospace'],
                 serif: ['var(--font-newsreader-serif)', 'serif'],
             },
         },

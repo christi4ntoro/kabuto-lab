@@ -1,0 +1,86 @@
+---
+title: "Atomic Before Atomic: A Custom CMS Built From Scratch"
+date: "2013-01-01"
+excerpt: "The project that started everything: a custom CMS built from scratch in 2012, where designing from the smallest element up became a habit, and sitting with developers became a method. The foundation KabutoLab still runs on."
+image: "/blog/atomic-before-atomic/atomic-before-atomic.webp"
+published: true
+tags: [work]
+lang: en
+client: "Goodwill Community Foundation"
+team: "Lead Designer, Frontend; Java-based development team"
+duration: "2012 to 2013"
+tools: ["HTML", "CSS", "Git", "Pencil"]
+discipline: ["Interaction Design", "UI Design", "Design Systems", "UX Research"]
+---
+
+## The Problem
+
+Goodwill Community Foundation needed a platform that served two completely different audiences at once. On the public side: thousands of users coming to access free educational courses, track their progress, and earn recognition for completing content. On the admin side: a multi-role CMS where super admins, content creators, and managers each needed their own scope of access, their own tools, and their own navigation logic, without ever stepping on each other.
+
+No existing CMS platform fit the requirement. The development lead built a Java-based system from scratch. The design had to be built from scratch too: no templates, no inherited patterns, no prior version to reference. Just user research, use cases, and an iterative process that ran from the first low-fidelity sketch to production testing.
+
+The project started as a South American deployment. It performed well enough that it was later mirrored on GCF's main US platform.
+
+## My Role
+
+**Lead Interaction Designer and Frontend at StudioDeki, 2012 to 2013.**
+
+I led the full design process: research, user flows, low to high fidelity prototyping, design system, and frontend implementation in HTML and CSS. I worked directly alongside the development team in Git-based mini sprints, testing design decisions in code against real production conditions.
+
+This project was also where I started learning how development actually works from the inside. Sitting with developers, understanding their constraints and mental models, learning to think about design decisions in terms of what they cost to build and maintain. That foundation shaped every project I ran after it.
+
+## Constraints
+
+- **Custom platform, no reference points.** The CMS was Java-based and purpose-built. There was no existing system to study, no design patterns to borrow from, no documentation to inherit.
+- **Multi-role complexity from day one.** Super admins, content creators, and managers had different permissions, different tools, and different mental models of what the platform was for. The design had to hold all of them without making any role feel like a second-class citizen.
+- **2012 responsive landscape.** Mobile-first was not standard practice yet. The project was designed for multiple desktop resolutions rather than a fluid responsive system. That was the state of the craft at the time, not a deliberate choice.
+- **Nonprofit budget and timeline.** Every design decision had to be justified against real production constraints. Nothing could be speculative or decorative if it added development cost.
+- **Users with varying technical literacy.** The public-facing side served learners with a wide range of digital experience. The admin side served staff with varying technical confidence. Both needed to feel intuitive without dumbing down the functionality.
+
+## Design Decisions
+
+### Start from the minimal viable element, not the full system
+
+Before designing anything at screen level, I mapped every element the website actually needed to exist: the smallest functional units, their states, their relationships. This bottom-up inventory became the foundation for the component structure, which in hindsight was atomic design thinking before I had that name for it. Every component was defined once and reused deliberately. The discipline of that early inventory is what made the system consistent across the public and admin surfaces without building them separately.
+
+### Research before wireframes, every time
+
+The process ran through think-aloud sessions, A/B tests, concept tests, and expectation surveys before a single high-fidelity screen was produced. Low-fidelity prototypes were tested with real company users. Mid-fidelity followed once the flows were validated. High-fidelity only came after the structure had been challenged and refined.
+
+This sequencing was not bureaucratic. It was the only way to understand what super admins, content creators, and managers actually needed from the same platform. Their mental models of "managing content" were completely different. The research made those differences concrete before they became design conflicts.
+
+### Multi-role navigation as a hierarchy, not a permission wall
+
+The instinct with multi-role systems is to hide things: show each role only what they're allowed to touch, hide everything else. The problem with that approach is that it fragments the user's mental model of the platform. People lose track of where things live because the interface changes depending on who they are.
+
+The design decision here was to build a navigation hierarchy that reflected each role's scope clearly rather than just restricting access silently. Users understood why certain areas were available to them and why others weren't. The hierarchy communicated authority and responsibility, not just permissions.
+
+### Mini sprints in code as a design tool
+
+Rather than handing off complete designs for development, the process ran in short implementation cycles: design a component or flow, build it in a sandbox branch, test it against real production conditions, refine. This was before "design in code" was a common practice, and it required learning enough about Git branching and frontend implementation to participate meaningfully in those cycles.
+
+The result was a tighter feedback loop between design intent and built reality. Problems that would have surfaced late in a traditional handoff process surfaced early, when they were cheap to fix.
+
+### Gamification tied to real learning milestones
+
+Stars and completion recognition were not added to make the platform feel playful. They were tied directly to course completion states and content advancement. The system rewarded demonstrated progress, not just time spent. This distinction shaped how the progress tracking was architected: completion had to be meaningful and verifiable, not just a checkbox the user could game.
+
+## What I'd Do Differently
+
+The most significant limitation of this project by today's standards was the absence of mobile design. Different desktop resolutions were designed for, but the mobile experience was not considered as a primary surface. That was an industry-wide blind spot in 2012, but knowing what I know now, I'd have pushed for at least a basic mobile-first foundation even then. The component system was modular enough that it could have supported it.
+
+I'd also document the multi-role permission logic more formally from the start. The navigation hierarchy decisions were made iteratively and worked well in practice, but the reasoning lived mostly in research notes and sprint conversations rather than a structured decision document. That made onboarding new team members slower than it needed to be.
+
+## Outcome
+
+- A **fully custom CMS** delivered on a Java-based platform, serving super admin, content creator, and manager roles with distinct navigation hierarchies and permission scopes.
+- A **public-facing course platform** serving thousands of users in South America with course discovery, registration, progress tracking, and a gamified completion system.
+- **Adopted and mirrored** on Goodwill Community Foundation's main US platform following successful deployment in South America.
+- An **atomic component system** that maintained visual and interaction consistency across two completely different surfaces: public learner experience and internal content management.
+- A personal foundation in **developer collaboration, Git workflows, and production-aware design** that shaped every systems project that followed.
+
+## Transferable Insight
+
+This was the project where I understood that design and development are not sequential. They are parallel, iterative, and mutually corrective. The mini sprint model, designing and building in short cycles with real feedback at each step, is not a methodology you adopt because it's fashionable. It's what happens when you respect that code reveals things wireframes cannot, and that developers build better when design decisions come with the reasoning behind them, not just the spec.
+
+The atomic foundation built here became the mental model I brought to every design system project afterward. Not because it was formally documented as such at the time, but because the discipline of defining the smallest unit first, before the full screen, before the full flow, produces systems that scale without breaking. Start small. Be consistent. The rest follows.

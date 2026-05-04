@@ -1,0 +1,127 @@
+---
+title: "Designing Wellbeing by Evidence: Stress Mitigation in Virtual Reality"
+date: "2025-06-01"
+excerpt: "The research project that changed everything. After 12 years of building systems and designing experiences, BoREAL became the question: does any of this actually work, and how do we know? An MSc thesis in Interaction Design using Research through Design to validate VR as a tool for stress mitigation."
+image: "/blog/designing-wellbeing-by-evidence/designing-wellbeing-by-evidence.webp"
+published: true
+tags: [work, research]
+lang: en
+client: "FAUL / EIMAD"
+team: "Solo researcher"
+duration: "<!-- TODO: fill in duration -->"
+tools: [Unity, Meta Quest, Figma]
+discipline: [Interaction Design, HCI Research, VR Development]
+---
+
+## Why This Exists
+
+Every project before this one was built on a conviction: that design shapes experience, that the structure of an interaction changes how people feel and behave, that getting it right matters beyond the aesthetic. The GCF platform, the airline training, the authoring system, the Kala app — all of them were built from that belief.
+
+BoREAL is what happens when you stop assuming the belief is true and start trying to prove it.
+
+This is not a client project. It is an MSc thesis in Interaction Design at FAUL, conducted under Research through Design methodology. Its purpose is to ask, with scientific rigour, whether a deliberately designed VR experience can deliver measurable stress mitigation outcomes comparable to real nature exposure — and if so, what design decisions produce those outcomes and why. The answer to that question is not just academically useful. It is the foundation everything KabutoLab builds toward: design grounded in evidence, not intuition.
+
+---
+
+## Research Question
+
+Can a purpose-designed virtual natural environment produce measurable stress mitigation outcomes in urban users with limited access to real nature, and what interaction design decisions are responsible for those outcomes?
+
+---
+
+## Context and Motivation
+
+Urban workers and students experience chronic stress with limited access to restorative natural environments. 68% of surveyed individuals experience it frequently or constantly. Existing digital wellness tools either demand passive consumption or lean into gamification mechanics that increase cognitive load rather than reduce it (Ryan & Deci, 2000). The gap is not technological. It is design knowledge: no accessible, scientifically grounded framework exists for practitioners who want to design therapeutic digital experiences rather than merely claim therapeutic intent.
+
+BoREAL is a Research through Design (RtD) investigation. The prototype is both the research instrument and the contribution: a VR experience designed to embody specific theoretical principles from Attention Restoration Theory (Kaplan, 1995) and Stress Recovery Theory (Ulrich et al., 1991), evaluated against validated psychometric and physiological measures.
+
+The work sits at the intersection of Interaction Design, Human-Computer Interaction research, and environmental psychology. Its intended contribution is a transferable design framework, not just a product.
+
+---
+
+## Methodology
+
+**Research through Design (RtD).** The prototype was developed iteratively across three versions, with each iteration driven by evaluation findings from the previous one. Design decisions were treated as hypotheses: explicit, documented, and testable.
+
+**Evaluation instruments:**
+- Self-Assessment Manikin (SAM) scale for emotional valence and arousal, adapted from 9 to 5 points to reduce cognitive load during the session.
+- NASA Task Load Index (NASA-TLX) for perceived mental demand.
+- Physiological measures for arousal baseline and post-intervention comparison.
+- User expectation survey administered prior to prototype exposure.
+- Post-experience qualitative interviews.
+
+**Sample:** Purposive sample of n=6 participants, ages 24 to 71, selected to cover a broad experiential range rather than statistical representativeness. This is consistent with RtD pilot scope.
+
+**Session structure:** 3-minute stress induction phase followed by approximately 4-minute VR intervention, designed to fit within a single controlled session window.
+
+![Affective response stimuli used in the evaluation setup](/blog/boreal/affective-response-stimuli.webp)
+
+---
+
+## Design Decisions
+
+Each decision below was made in response to evaluation data, theoretical grounding, or both. None were aesthetic.
+
+![Iterative design process across three prototype versions](/blog/boreal/iterative-design.avif)
+
+<YouTube id="T-bEptdwyko" />
+
+**Eliminating locomotion after iteration one.** The first prototype placed users in a forest environment with joystick navigation and rock-throwing interaction. Unity's Level of Detail optimisation on the Quest caused motion sickness during locomotion. The second iteration moved to a stationary floating island platform, removing locomotion entirely. This was not a compromise forced by technical failure. It became the structural decision every subsequent choice was built around: a stable, bounded space that the user inhabits rather than traverses.
+
+![Evaluation protocol overview](/blog/boreal/evaluation-protocol.avif)
+
+**Bubble-popping over rock-throwing.** The interaction mechanic needed to require no navigation, maintain low cognitive load, and feel present without being demanding. The expectation survey found that 50% of users preferred light interaction. Bubble-popping satisfied all conditions: it required minimal physical engagement, created no spatial pressure, and introduced just enough agency to make the experience feel chosen rather than consumed.
+
+![User expectation survey results — 50% preferred light interaction](/blog/boreal/expectation.webp)
+
+**Fantastical island over realistic forest.** Attention Restoration Theory identifies "being away" as a core restorative mechanism: the environment must provide sufficient psychological distance from the stressors of daily life. A realistic forest risks triggering associations with familiar outdoor spaces rather than providing genuine respite. The surreal, impossible island removes that risk. The fantastical environment is not an aesthetic preference; it is a theoretical requirement.
+
+**Binaural audio sequenced to iteration three, not iteration one.** Audio ranked as the highest-priority sensory element in the expectation survey (M=3.82). It was deliberately withheld from the first two iterations. The reason is methodological: adding audio before the core interaction model was stable would have made it impossible to isolate which variable was producing which effects. Sequencing the introduction of sensory layers is a research design decision, not a production timeline decision.
+
+**No performance metrics, by design.** No score, no timer, no progress indicator, no feedback loop of any kind. Any mechanism capable of introducing performance pressure would directly contradict the therapeutic intent of the intervention. Their exclusion is not a missing feature; it is a design principle with theoretical backing in Self-Determination Theory (Ryan & Deci, 2000).
+
+---
+
+## Limitations and Reflection
+
+The SAM scale reduction from 9 to 5 points was justified in context by the need to minimise cognitive load during the session. It is acknowledged as a limitation: the adapted scale reduces direct comparability with the wider SAM literature. A future study should validate the scale reduction itself as a separate methodological step before deploying it as a primary measurement instrument.
+
+Participant recruitment did not control for prior VR experience as an independent variable. Device familiarity likely influenced baseline arousal readings in ways the study could not fully account for within the pilot scope. Recruiting participants without prior VR exposure as a controlled condition would strengthen the internal validity of a follow-up study.
+
+The sample size of n=6 is appropriate for an RtD pilot but limits generalisability. The contribution of this research is the design framework and the validated prototype, not statistically representative outcomes.
+
+---
+
+## Results
+
+**56% improvement** in emotional valence (3.2 → 5.0 out of 5) across all participants. **100% positive emotional outcomes.** **0% motion sickness** across ages 24 to 71. **89% would recommend** the experience.
+
+Post-experience emotional scores: Calm 4.8/5 · Relaxed 4.8/5 · Interested 4.8/5 · Negative affect 1.0 to 1.5/5.
+
+![Primary result outcomes across all participants](/blog/boreal/result-outcomes.webp)
+
+![Physiological results pre and post intervention](/blog/boreal/physiological-results.webp)
+
+![NASA-TLX mental demand scores](/blog/boreal/mental-demand.webp)
+
+The prototype established an empirically validated design framework for therapeutic VR experiences, documented for replication in educational and workplace wellness contexts. The framework is the intended contribution to the field, independent of the specific prototype.
+
+---
+
+## What This Opens
+
+BoREAL is not a finished project. It is an opening.
+
+The research demonstrated that deliberate interaction design decisions produce measurable therapeutic outcomes. That finding is not bounded by VR. It applies to any experience where the designer makes choices about cognitive load, sensory input, agency, and environmental framing. The question BoREAL answered is the same question every previous project in this portfolio was implicitly asking: does the structure of an experience shape how people feel and behave? The answer, with evidence, is yes.
+
+The next work builds from here. Not toward more VR products, but toward a practice grounded in understanding why designed experiences work at a human level, and how that understanding can be made transferable. That is what KabutoLab is becoming. BoREAL is where the shift became explicit.
+
+---
+
+## Key Findings for Practice
+
+Minimal, low-stakes user agency measurably increases therapeutic effectiveness in passive digital experiences. The interaction does not need to be complex; it needs to feel chosen.
+
+Multi-sensory coherence compounds outcomes. Neither audio nor visuals alone produced the results their combination did. The sequencing of sensory layer introduction matters as much as the layers themselves.
+
+Theoretical grounding is not academic decoration. Every design decision that produced a measurable outcome in this study was traceable to a theoretical principle established in the literature. Intuition-led design may produce similar results occasionally. Evidence-grounded design produces them deliberately.

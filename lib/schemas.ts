@@ -6,6 +6,8 @@ export const blogFrontmatterSchema = z.object({
   excerpt: z.string(),
   image: z.string(),
   published: z.boolean(),
+  tags: z.array(z.string()).default([]),
+  lang: z.string().default('en'),
 });
 
 export const productFrontmatterSchema = z.object({

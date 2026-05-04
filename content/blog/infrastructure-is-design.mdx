@@ -1,0 +1,81 @@
+---
+title: "Infrastructure Is Design: Authoring Tool for SCORM E-Learning"
+date: "2024-01-01"
+excerpt: "Seven years, 120 courses, 25,000 trained users. The Content Manager was never a product — it was infrastructure for a practice. What it taught about systems, documentation, and designing for teams you can't see is still the backbone of how KabutoLab works."
+image: "/blog/infrastructure-is-design/infrastructure-is-design.webp"
+published: true
+tags: [work]
+lang: en
+client: "StudioDeki (internal)"
+team: "6 to 10 designers and developers (distributed, remote)"
+duration: "2017 to 2024"
+tools: ["HTML5", "SASS", "JavaScript", "JSON", "Git"]
+discipline: ["Interaction Design", "Frontend Development", "Design Systems", "UX Research"]
+---
+
+## The Problem
+
+Off-the-shelf authoring tools like Storyline and Lectora solve a real problem: they let non-technical people build e-learning fast. But they come with a cost most clients never see upfront. Every course looks like every other course built on the same platform. The templates are recognizable. The interaction patterns are shared across thousands of products. For clients investing in corporate training, that sameness signals a lack of ownership over their own content.
+
+StudioDeki's clients didn't want templated courses. They wanted branded, custom learning experiences that felt like they belonged to their company. Existing tools couldn't deliver that at the quality level and cost structure the business needed. So we built our own.
+
+## My Role
+
+**Lead Interaction Designer, Frontend Developer, and Project Manager at StudioDeki, co-founder.**
+
+This is genuinely hard to separate into clean lanes, because the roles were intertwined by necessity. I led the design of the system: the component architecture, the interaction patterns, the visual language. I also built the frontend, translating those designs into HTML5, SASS, and JavaScript templates. And because I was the person with the deepest understanding of both sides, I coordinated the broader team of designers and developers, documented the system, and managed client requirements as they fed back into new iterations.
+
+The team grew to between 6 and 10 people at peak. My role was less about doing everything and more about being the connective tissue: the person who understood what designers needed, what developers could build, and what clients were actually asking for when they described a requirement.
+
+## Constraints
+
+- **SCORM compliance was non-negotiable.** The tool had to produce courses compatible with SCORM 1.2 and 2004, across a range of LMS platforms including Moodle, SuccessFactors, Saba, Blackboard, and EKP. Each platform had its own interpretation of the standard.
+- **Remote distributed team.** Designers and developers working asynchronously needed a shared language and a Git-based workflow that didn't depend on anyone being in the same room or timezone.
+- **Non-technical end users.** The system had to be usable by people who weren't developers. Content creators and instructional designers needed to customize and deploy courses without touching code.
+- **Seven years of evolving client requirements.** The tool was never frozen. Every new client contract brought new interaction requirements, new LMS targets, new content formats. The system had to absorb those without breaking what already existed.
+
+## Design Decisions
+
+### Build a shared language before building components
+
+The first real design problem wasn't visual. It was communication. Designers described things one way, developers implemented them another way, and the gap between those two descriptions was where bugs and rework lived. Before anything else, the team defined a shared vocabulary for components, states, and interaction patterns. That shared language became the foundation of the documentation and the Git workflow. It's the reason a team of up to 10 people working remotely could ship consistently without a daily standup governing every decision.
+
+### Modularity as the core architectural principle
+
+Rather than building courses as monolithic files, the system was structured around reusable modules: components defined once, customized per client through JSON variables, and assembled into courses without rebuilding from scratch. This was the decision that made 120 courses across 24 companies possible without a proportional increase in production time. New client requirements got absorbed as new modules rather than custom forks. The library grew; the maintenance burden didn't spiral.
+
+### JSON for customization, not hardcoded styles
+
+Client branding, typography, color systems, interaction parameters: all of it was driven by JSON configuration rather than baked into the templates. A designer could adapt a course to a new client's brand without touching the underlying HTML or JavaScript. This was the key decision that separated the tool from a template factory. The structure was shared; the expression of it was always the client's own.
+
+### Analytics built into the delivery layer
+
+SCORM reporting was not treated as a technical afterthought. From early in the design process, the reporting schema was planned as part of the course architecture: completion rates, learner progress, content engagement signals. This gave clients actual data to optimize their training programs rather than a binary pass/fail from the LMS.
+
+### Documentation as a design artifact
+
+Because the tool evolved gradually over seven years with no single major rebuild, documentation wasn't written once and archived. It was maintained as a living part of the system. Every new component, every new interaction pattern, every change to the Git workflow got documented at the time of creation. This kept a rotating team of 6 to 10 people oriented without requiring institutional memory to live in any one person.
+
+## What I'd Do Differently
+
+Seven years of gradual evolution left technical debt that a planned architectural review would have caught earlier. There were moments where a deliberate pause to audit and refactor would have been worth more than the next feature. We never took that pause because delivery pressure always made the next client requirement feel more urgent. In hindsight, building in a structured review cycle from year two or three would have kept the system cleaner longer.
+
+I'd also have pushed for at least one round of usability testing with non-technical end users earlier in the project. The system got progressively more refined through real usage and feedback, but some of the friction points in the content creation flow could have been caught and designed out much sooner with even informal testing sessions.
+
+## Outcome
+
+Over seven years the Content Manager powered the full course production output of StudioDeki:
+
+- **120 e-learning courses** delivered across **24 companies** in South America.
+- **25,000+ users** trained and certified through LMS platforms running courses built on the system.
+- A **remote team of up to 10 designers and developers** able to collaborate asynchronously on a shared codebase with consistent output quality.
+- **Reusable module library** that reduced per-course production time as the component catalog grew.
+- **Cross-platform SCORM compatibility** across Moodle, SuccessFactors, Saba, Blackboard, and EKP, with integrated analytics reporting for each client.
+
+The tool was never sold or licensed as a standalone product. Its value was entirely internal: it made the team faster, the output more consistent, and the client promise of custom-branded content actually deliverable at scale.
+
+## Transferable Insight
+
+Leading a project where you are also a maker is not the same as doing everything alone. The real skill is knowing which role to inhabit at which moment: when to be the designer setting direction, when to be the developer solving a specific constraint, and when to step back and coordinate so the rest of the team can move. The connective tissue role is often invisible in project retrospectives, but it is frequently where the most consequential decisions happen. Someone has to translate between design intent and implementation reality. When that person doesn't exist, the gap fills with assumptions, and assumptions become bugs.
+
+Build systems for the team that will use them, not the team you have today. The Content Manager lasted seven years because it was designed to grow. That's not an accident; it's an architectural decision made early and defended consistently.

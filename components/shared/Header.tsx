@@ -4,9 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { useTheme } from '@/components/shared/ThemeProvider';
+import { Sun, Moon } from 'lucide-react';
+import { navLinks } from '@/lib/content';
 
 export default function Header() {
   const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
@@ -44,14 +48,6 @@ export default function Header() {
       document.body.style.overflow = 'unset';
     }
   }, [menuOpen]);
-
-  const navLinks = [
-    { href: '/products', label: 'Systems' },
-    { href: '/tutorials', label: 'Tutorials' },
-    { href: '/about', label: 'Archive' },
-    { href: '/blog', label: 'Transmissions' },
-    { href: '/contact', label: 'Connect' },
-  ];
 
   const closeAllMenus = () => {
     setMobileMenuOpen(false);
@@ -128,7 +124,7 @@ export default function Header() {
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center">
+            <div className="hidden md:flex items-center gap-4">
               {!isScrolled ? (
                 <div className="flex gap-8">
                   {navLinks.map((link) => {
@@ -138,7 +134,7 @@ export default function Header() {
                         key={link.href}
                         href={link.href}
                         aria-current={isActive ? "page" : undefined}
-                        className={`font-medium transition-all duration-300 text-[15px] ${
+                        className={`font-medium transition-all duration-300 text-[15px] text-[--foreground] ${
                           isActive ? 'opacity-100' : 'opacity-50 hover:opacity-100'
                         }`}
                       >
@@ -157,23 +153,39 @@ export default function Header() {
                   {desktopMenuOpen ? 'Close' : 'Menu'}
                 </button>
               )}
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                aria-label="Toggle theme"
+                className="p-2 transition-colors"
+              >
+                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              </button>
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="block md:hidden relative z-50 font-medium text-[15px] underline"
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileMenuOpen}
-            >
-              {mobileMenuOpen ? 'Close' : 'Menu'}
-            </button>
+            <div className="flex md:hidden items-center gap-2 relative z-50">
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                aria-label="Toggle theme"
+                className="p-2 transition-colors"
+              >
+                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              </button>
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="font-medium text-[15px] underline"
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileMenuOpen}
+              >
+                {mobileMenuOpen ? 'Close' : 'Menu'}
+              </button>
+            </div>
           </nav>
       </header>
 
       {/* Full-Screen Menu Overlay */}
       <div
-        className={`fixed inset-0 bg-[#030014] backdrop-blur-lg transition-transform duration-700 ease-in-out ${
+        className={`fixed inset-0 bg-background backdrop-blur-lg transition-transform duration-700 ease-in-out ${
           menuOpen ? 'translate-y-0' : '-translate-y-full'
         }`}
         style={{ zIndex: 9999 }}
@@ -189,7 +201,7 @@ export default function Header() {
                   onClick={closeAllMenus}
                   aria-current={isActive ? "page" : undefined}
                   className={`text-6xl md:text-8xl font-bold transition-all duration-300 ${
-                    isActive ? 'text-blue-400' : 'text-white hover:text-blue-400'
+                    isActive ? 'text-blue-400' : 'text-[--foreground] hover:text-blue-400'
                   }`}
                   style={{
                     transitionDelay: menuOpen ? `${index * 80}ms` : '0ms',

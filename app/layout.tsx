@@ -5,6 +5,7 @@ import Header from "@/components/shared/Header";
 import Footer from '@/components/shared/Footer';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import CookieConsent from '@/components/shared/CookieConsent';
+import { ThemeProvider } from '@/components/shared/ThemeProvider';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +27,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://kabutolab.tech'),
   title: "KabutoLab",
   description: "Immersive Experience Design",
 };
@@ -36,19 +38,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            var stored = localStorage.getItem('kl-theme');
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = stored || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+          })();
+        `}} />
+      </head>
       <body
-        className={`${geistSans.variable} ${jetbrainsMono.variable} ${newsreaderSerif.variable} antialiased bg-black`}
+        className={`${geistSans.variable} ${jetbrainsMono.variable} ${newsreaderSerif.variable} antialiased`}
+        style={{ background: 'var(--background)', color: 'var(--foreground)' }}
       >
-        <Header />
-        
-        {/* Main content wrapper - this will slide up over the footer */}
-        <div className="main-content-wrapper">
-          {children}
-        </div>
-        
-        {/* Footer stays fixed underneath */}
-        <Footer />
+        <ThemeProvider>
+          <Header />
+
+          {/* Main content wrapper - this will slide up over the footer */}
+          <div className="main-content-wrapper">
+            {children}
+          </div>
+
+          {/* Footer stays fixed underneath */}
+          <Footer />
+        </ThemeProvider>
 
         {/* Google Analytics - Only loads in production */}
         {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_ID && (

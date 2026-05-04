@@ -4,7 +4,7 @@ import { services, servicesContent } from '@/lib/services';
 
 export default function ServicesSection() {
   return (
-    <section className="px-4 py-16 md:px-20 md:py-24 bg-black">
+    <section className="px-4 py-16 md:px-20 md:py-24 bg-[--background]">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="grid grid-cols-3 gap-4">
@@ -14,7 +14,7 @@ export default function ServicesSection() {
             </p>
           </div>
           <div className="text-left mb-12 md:mb-16 col-start-2 col-span-2">
-            <h2 className="text-4xl md:text-5xl text-white mb-4">
+            <h2 className="text-4xl md:text-5xl text-[--foreground] mb-4">
               {servicesContent.heading}
             </h2>
             <p className="text-lg md:text-xl text-gray-400">
@@ -43,7 +43,7 @@ export default function ServicesSection() {
                 </div>
 
               {/* Title */}
-              <h3 className="text-2xl font-bold text-white mb-3">
+              <h3 className="text-2xl font-bold text-[--foreground] mb-3">
                 {service.title}
               </h3>
 
