@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Linkedin, Youtube, Github, Instagram, ArrowRight } from 'lucide-react';
+import { Linkedin, Youtube, Github, Instagram } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { navLinks } from '@/lib/content';
+import { navLinks, content } from '@/lib/content';
 
 const socialLinks = [
   { name: 'LinkedIn', url: 'https://www.linkedin.com/in/chrisrto/', icon: Linkedin },
@@ -15,7 +15,7 @@ const socialLinks = [
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const [email, setEmail] = useState('');
+  const t = content;
   const [scrollProgress, setScrollProgress] = useState(0);
   const footerRef = useRef<HTMLElement>(null);
 
@@ -37,12 +37,6 @@ export default function Footer() {
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Newsletter signup:', email);
-    setEmail('');
-  };
 
   const footerTransform = `translateY(${(1 - scrollProgress) * 40}%)`;
 
@@ -85,8 +79,7 @@ export default function Footer() {
                 />
               </Link>
               <p className="text-[--muted] text-sm md:text-base leading-relaxed max-w-md">
-                Tools and frameworks for immersive experience designers.
-                Building the future of narrative design through systematic innovation.
+                {t.footer.description}
               </p>
             </div>
           </div>
@@ -111,47 +104,12 @@ export default function Footer() {
                 ))}
               </nav>
 
-              <select
-                disabled
-                aria-label="Language"
-                className="bg-[--surface] text-[--muted] border border-[--border] rounded px-3 py-1.5 text-sm cursor-not-allowed opacity-60"
-              >
-                <option value="en">EN — more languages coming soon</option>
-              </select>
             </div>
 
-            {/* Column 2 — Subscribe */}
+            {/* Column 2 — Newsletter */}
             <div>
-              <p className="text-[--muted] mb-6 text-sm leading-relaxed">
-                Get valuable insights on immersive design, narrative frameworks, and experience creation straight to your inbox.
-              </p>
-
-              <form onSubmit={handleSubmit} className="mb-4">
-                <div className="flex items-center border-b border-[--border] pb-2 hover:border-[--muted] transition-colors group">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email here"
-                    required
-                    className="flex-1 bg-transparent text-[--foreground] placeholder:text-[--muted] focus:outline-none text-sm"
-                  />
-                  <button
-                    type="submit"
-                    aria-label="Subscribe to newsletter"
-                    className="text-[--muted] group-hover:text-[--foreground] transition-colors"
-                  >
-                    <ArrowRight size={20} />
-                  </button>
-                </div>
-              </form>
-
-              <p className="text-xs text-[--muted]">
-                By signing up, you agree to our{' '}
-                <Link href="/privacy" className="underline hover:text-[--foreground] transition-colors">
-                  Privacy Policy
-                </Link>
-                . Unsubscribe anytime.
+              <p className="text-[--muted] text-sm leading-relaxed">
+                {t.footer.newsletterDescription}
               </p>
             </div>
           </div>
@@ -159,7 +117,7 @@ export default function Footer() {
           {/* Bottom row — Credits & Social */}
           <div className="border-t border-[--border] pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <p className="text-[--muted] text-sm order-2 md:order-1">
-              © {currentYear} KabutoLab™ | LIS | LX
+              © {currentYear} {t.footer.copyright}
             </p>
             <div className="flex gap-5 order-1 md:order-2">
               {socialLinks.map((social) => {

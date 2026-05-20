@@ -6,11 +6,13 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { useTheme } from '@/components/shared/ThemeProvider';
 import { Sun, Moon } from 'lucide-react';
-import { navLinks } from '@/lib/content';
+import { navLinks, content } from '@/lib/content';
 
 export default function Header() {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  const { theme, mounted, setTheme } = useTheme();
+  const themeIcon = !mounted || theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />;
+  const t = content;
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
@@ -150,7 +152,7 @@ export default function Header() {
                   aria-label={desktopMenuOpen ? "Close menu" : "Open menu"}
                   aria-expanded={desktopMenuOpen}
                 >
-                  {desktopMenuOpen ? 'Close' : 'Menu'}
+                  {desktopMenuOpen ? t.nav.close : t.nav.menu}
                 </button>
               )}
               <button
@@ -158,7 +160,7 @@ export default function Header() {
                 aria-label="Toggle theme"
                 className="p-2 transition-colors"
               >
-                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                {themeIcon}
               </button>
             </div>
 
@@ -169,7 +171,7 @@ export default function Header() {
                 aria-label="Toggle theme"
                 className="p-2 transition-colors"
               >
-                {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                {themeIcon}
               </button>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -177,7 +179,7 @@ export default function Header() {
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileMenuOpen}
               >
-                {mobileMenuOpen ? 'Close' : 'Menu'}
+                {mobileMenuOpen ? t.nav.close : t.nav.menu}
               </button>
             </div>
           </nav>

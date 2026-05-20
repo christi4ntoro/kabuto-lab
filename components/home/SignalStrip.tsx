@@ -1,27 +1,32 @@
+'use client';
+
 import Link from 'next/link';
+import { content } from '@/lib/content';
 
 export default function SignalStrip() {
+  const t = content;
+
   return (
     <section className="bg-[--background] py-10 px-4 text-center">
-      <div className="max-w-2xl mx-auto flex flex-col gap-4" style={{ fontFamily: 'var(--font-geist-mono)' }}>
-        <p className="text-sm text-white/60 tracking-wide">
-          MSc Interaction Design · Universidade de Lisboa
+      <div className="max-w-2xl mx-auto flex flex-col gap-4 font-mono">
+        <p className="text-sm text-[--muted] tracking-wide">
+          {t.signalStrip.line1}
         </p>
         <hr className="border-white/10" />
-        <p className="text-sm text-white/60 tracking-wide">
-          EIMAD 2026 · BoREAL: VR for stress mitigation
+        <p className="text-sm text-[--muted] tracking-wide">
+          {t.signalStrip.line2}
         </p>
         <hr className="border-white/10" />
-        <p className="text-sm text-white/60 tracking-wide">
+        <p className="text-sm text-[--muted] tracking-wide">
           <Link
             href="https://youtube.com/@kabutolab"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/60 hover:text-white transition-colors"
+            className="text-[--muted] hover:text-[--foreground] transition-colors"
           >
-            @kabutolab
+            {t.signalStrip.line3Handle}
           </Link>
-          {' · Unity · Meta Quest · VR tutorials'}
+          {t.signalStrip.line3Suffix}
         </p>
       </div>
     </section>

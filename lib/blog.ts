@@ -52,7 +52,7 @@ export function getAllPosts(): BlogPost[] {
         content,
       };
     })
-    .filter(post => post.published !== false);
+    .filter(post => post.published !== false && post.lang === 'en');
 
   return posts.sort((a, b) => (a.date > b.date ? -1 : 1));
 }

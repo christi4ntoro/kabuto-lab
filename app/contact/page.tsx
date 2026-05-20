@@ -7,9 +7,9 @@ export default function ContactPage() {
           <div className="space-y-8">
             <div>
               <h2 className="text-2xl font-bold mb-4 text-blue-400">Get in Touch</h2>
-              <p className="text-xl text-gray-300 mb-6">
+              <p className="text-xl text-[--muted] mb-6">
                 {/* Have questions about our products? Want to collaborate? Reach out. */}
-                Let's get in touch.
+                Let&apos;s get in touch.
               </p>
             </div>
   

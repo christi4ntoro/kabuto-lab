@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { content } from '@/lib/content';
 
 interface Video {
   id: string;
@@ -14,18 +15,32 @@ interface CustomVideoPlayerProps {
   playlistTitle: string;
 }
 
-// YouTube IFrame API types
+interface YTPlayerOptions {
+  videoId: string;
+  playerVars?: { autoplay?: number; modestbranding?: number; rel?: number };
+  events?: { onStateChange?: (event: { data: number }) => void };
+}
+
+interface YTPlayer {
+  destroy(): void;
+}
+
+interface YTNamespace {
+  Player: new (container: HTMLElement, options: YTPlayerOptions) => YTPlayer;
+}
+
 declare global {
   interface Window {
-    YT: any;
+    YT: YTNamespace;
     onYouTubeIframeAPIReady: () => void;
   }
 }
 
 export default function CustomVideoPlayer({ videos, playlistTitle }: CustomVideoPlayerProps) {
+  const t = content;
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [showContinueButton, setShowContinueButton] = useState(false);
-  const playerRef = useRef<any>(null);
+  const playerRef = useRef<YTPlayer | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const currentVideoIndexRef = useRef(0);
   const shouldAutoplayRef = useRef(false);
@@ -37,29 +52,58 @@ export default function CustomVideoPlayer({ videos, playlistTitle }: CustomVideo
     currentVideoIndexRef.current = currentVideoIndex;
   }, [currentVideoIndex]);
 
+  const initializePlayer = useCallback(() => {
+    if (!containerRef.current || !window.YT || !window.YT.Player) return;
+
+    const videoId = videos[currentVideoIndexRef.current]?.id;
+    if (!videoId) return;
+
+    const shouldAutoplay = shouldAutoplayRef.current;
+    shouldAutoplayRef.current = false;
+
+    playerRef.current = new window.YT.Player(containerRef.current, {
+      videoId,
+      playerVars: {
+        autoplay: shouldAutoplay ? 1 : 0,
+        modestbranding: 1,
+        rel: 0,
+      },
+      events: {
+        onStateChange: (event: { data: number }) => {
+          const currentIndex = currentVideoIndexRef.current;
+          if (event.data === 0 && currentIndex < videos.length - 1) {
+            setShowContinueButton(true);
+          }
+        },
+      },
+    });
+  }, [videos]);
+
+  // Keep a stable ref to initializePlayer for the API-load effect
+  const initializePlayerRef = useRef(initializePlayer);
+  useEffect(() => {
+    initializePlayerRef.current = initializePlayer;
+  }, [initializePlayer]);
+
   // Load YouTube IFrame API
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Check if API is already loaded
     if (window.YT && window.YT.Player) {
-      // API already loaded, initialize player
       const timer = setTimeout(() => {
-        initializePlayer();
+        initializePlayerRef.current();
       }, 100);
       return () => clearTimeout(timer);
     }
 
-    // Load the API script
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
 
-    // Set up callback
     window.onYouTubeIframeAPIReady = () => {
       setTimeout(() => {
-        initializePlayer();
+        initializePlayerRef.current();
       }, 100);
     };
 
@@ -67,7 +111,7 @@ export default function CustomVideoPlayer({ videos, playlistTitle }: CustomVideo
       if (playerRef.current) {
         try {
           playerRef.current.destroy();
-        } catch (e) {
+        } catch {
           // Ignore errors during cleanup
         }
       }
@@ -77,56 +121,22 @@ export default function CustomVideoPlayer({ videos, playlistTitle }: CustomVideo
   // Initialize or update player when video changes
   useEffect(() => {
     if (window.YT && window.YT.Player && containerRef.current) {
-      setShowContinueButton(false);
-      
       if (playerRef.current) {
-        // Destroy old player and create new one to ensure event handlers are updated
         try {
           playerRef.current.destroy();
-        } catch (e) {
+        } catch {
           // Ignore errors
         }
         playerRef.current = null;
       }
-      
-      // Initialize new player with current video
+
       const timer = setTimeout(() => {
         initializePlayer();
       }, 100);
-      
+
       return () => clearTimeout(timer);
     }
-  }, [currentVideo.id, currentVideoIndex, videos.length]);
-
-  const initializePlayer = () => {
-    if (!containerRef.current || !window.YT || !window.YT.Player) return;
-    
-    const videoId = videos[currentVideoIndexRef.current]?.id;
-    if (!videoId) return;
-
-    const shouldAutoplay = shouldAutoplayRef.current;
-    // Reset the autoplay flag after using it
-    shouldAutoplayRef.current = false;
-
-    playerRef.current = new window.YT.Player(containerRef.current, {
-      videoId: videoId,
-      playerVars: {
-        autoplay: shouldAutoplay ? 1 : 0,
-        modestbranding: 1,
-        rel: 0,
-      },
-      events: {
-        onStateChange: (event: any) => {
-          // YT.PlayerState.ENDED = 0
-          // Only show continue button if not the last video
-          const currentIndex = currentVideoIndexRef.current;
-          if (event.data === 0 && currentIndex < videos.length - 1) {
-            setShowContinueButton(true);
-          }
-        },
-      },
-    });
-  };
+  }, [currentVideo.id, currentVideoIndex, videos.length, initializePlayer]);
 
   const handleContinue = () => {
     if (currentVideoIndex < videos.length - 1) {
@@ -141,7 +151,7 @@ export default function CustomVideoPlayer({ videos, playlistTitle }: CustomVideo
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Video Player - Left Side (2/3 width) */}
       <div className="lg:col-span-2">
-        <div className="relative w-full aspect-video bg-gray-900 rounded-lg overflow-hidden shadow-lg">
+        <div className="relative w-full aspect-video bg-[--background] rounded-lg overflow-hidden shadow-lg">
           <div ref={containerRef} className="absolute top-0 left-0 w-full h-full" />
           
           {/* Continue Button Overlay */}
@@ -151,7 +161,7 @@ export default function CustomVideoPlayer({ videos, playlistTitle }: CustomVideo
                 onClick={handleContinue}
                 className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-lg shadow-lg transition-all transform hover:scale-105 flex items-center gap-3"
               >
-                <span>Continue to Next Video</span>
+                <span>{t.videoPlayer.continueButton}</span>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
@@ -162,14 +172,14 @@ export default function CustomVideoPlayer({ videos, playlistTitle }: CustomVideo
         
         {/* Current Video Info */}
         <div className="mt-4">
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
-            <span className="font-medium text-gray-700">
-              Video {currentVideoIndex + 1} of {videos.length}
+          <div className="flex items-center gap-2 text-sm text-[--muted] mb-2">
+            <span className="font-medium text-[--muted]">
+              {t.videoPlayer.videoLabel} {currentVideoIndex + 1} {t.videoPlayer.videoOf} {videos.length}
             </span>
             <span>•</span>
             <span>{currentVideo.duration}</span>
           </div>
-          <h3 className="text-xl font-semibold text-gray-900">
+          <h3 className="text-xl font-semibold text-[--foreground]">
             {currentVideo.title}
           </h3>
         </div>
@@ -177,10 +187,10 @@ export default function CustomVideoPlayer({ videos, playlistTitle }: CustomVideo
 
       {/* Video List - Right Side (1/3 width) */}
       <div className="lg:col-span-1">
-        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-          <div className="bg-gray-50 border-b border-gray-200 px-4 py-3">
-            <h3 className="font-semibold text-gray-900">{playlistTitle}</h3>
-            <p className="text-sm text-gray-500">{videos.length} videos</p>
+        <div className="bg-[--surface] border border-[--border] rounded-lg overflow-hidden">
+          <div className="bg-[--surface-alt] border-b border-[--border] px-4 py-3">
+            <h3 className="font-semibold text-[--foreground]">{playlistTitle}</h3>
+            <p className="text-sm text-[--muted]">{videos.length} {videos.length === 1 ? t.videoPlayer.videoSingular : t.videoPlayer.videoPlural}</p>
           </div>
           
           <div className="max-h-[600px] overflow-y-auto">
@@ -191,23 +201,23 @@ export default function CustomVideoPlayer({ videos, playlistTitle }: CustomVideo
                   setCurrentVideoIndex(index);
                   setShowContinueButton(false);
                 }}
-                className={`w-full flex gap-3 p-3 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 text-left ${
+                className={`w-full flex gap-3 p-3 hover:bg-[--surface-alt] transition-colors border-b border-[--border] last:border-b-0 text-left ${
                   index === currentVideoIndex ? 'bg-blue-50 border-l-4 border-l-blue-600' : ''
                 }`}
               >
                 {/* Video Number */}
-                <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-gray-100 rounded text-sm font-medium text-gray-700">
+                <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-[--surface-alt] rounded text-sm font-medium text-[--muted]">
                   {index + 1}
                 </div>
                 
                 {/* Video Info */}
                 <div className="flex-1 min-w-0">
                   <p className={`text-sm font-medium line-clamp-2 ${
-                    index === currentVideoIndex ? 'text-blue-600' : 'text-gray-900'
+                    index === currentVideoIndex ? 'text-blue-600' : 'text-[--foreground]'
                   }`}>
                     {video.title}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-[--muted] mt-1">
                     {video.duration}
                   </p>
                 </div>

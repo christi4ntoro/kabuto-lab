@@ -2,6 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { content } from '@/lib/content';
 import Link from 'next/link';
 import ProductCard from '@/components/ui/ProductCard';
 
@@ -18,7 +19,8 @@ interface ProductScrollSectionProps {
 
 export default function ProductScrollSection({ products }: ProductScrollSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+  const t = content;
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end']
@@ -31,7 +33,7 @@ export default function ProductScrollSection({ products }: ProductScrollSectionP
   return (
     <section 
       ref={containerRef} 
-      className="relative md:h-[300vh] bg-[#0A0014]"
+      className="relative md:h-[300vh] bg-[--background]"
     >
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="flex h-full items-center">
@@ -58,15 +60,15 @@ export default function ProductScrollSection({ products }: ProductScrollSectionP
             ))}
             
             {/* CTA Card at the end */}
-            <div className="flex-shrink-0 w-[400px] h-[500px] bg-neutral-900 rounded-lg p-8 flex flex-col items-center justify-center gap-4">
-              <h3 className="text-3xl font-bold text-white text-center">
-                Explore All Products
+            <div className="flex-shrink-0 w-[400px] h-[500px] bg-[--background] rounded-lg p-8 flex flex-col items-center justify-center gap-4">
+              <h3 className="text-3xl font-bold text-[--foreground] text-center">
+                {t.productScroll.ctaHeadingDesktop}
               </h3>
-              <Link 
+              <Link
                 href="/systems"
-                className="px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 transition-colors"
+                className="px-6 py-3 bg-[--foreground] text-[--background] font-semibold rounded-lg hover:bg-[--surface-alt] transition-colors"
               >
-                View Collection
+                {t.productScroll.ctaButtonDesktop}
               </Link>
             </div>
           </motion.div>
@@ -91,15 +93,15 @@ export default function ProductScrollSection({ products }: ProductScrollSectionP
               ))}
               
               {/* Mobile CTA */}
-              <div className="flex-shrink-0 w-[280px] h-[400px] bg-neutral-900 rounded-lg p-6 flex flex-col items-center justify-center gap-4">
-                <h3 className="text-2xl font-bold text-white text-center">
-                  View All
+              <div className="flex-shrink-0 w-[280px] h-[400px] bg-[--background] rounded-lg p-6 flex flex-col items-center justify-center gap-4">
+                <h3 className="text-2xl font-bold text-[--foreground] text-center">
+                  {t.productScroll.ctaHeadingMobile}
                 </h3>
-                <Link 
+                <Link
                   href="/systems"
-                  className="px-6 py-3 bg-white text-black font-semibold"
+                  className="px-6 py-3 bg-[--foreground] text-[--background] font-semibold"
                 >
-                  Products
+                  {t.productScroll.ctaButtonMobile}
                 </Link>
               </div>
             </div>

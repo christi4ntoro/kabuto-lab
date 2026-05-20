@@ -2,15 +2,15 @@
 
 ## 1. Project Overview
 
-**Kabuto Lab** is a portfolio and product/service marketplace focused on immersive experience design, particularly the Narrative Immersion Protocol (NIP). The site showcases digital products, courses, eBooks, templates, consulting services, and research related to immersive experiences (VR, AR, spatial computing, and conversational AI).
+**Kabuto Lab** is a portfolio and product/service marketplace focused on immersive experience design. The site showcases digital products, courses, research, and long-form writing.
 
 Key site sections:
 - **Home** — animated hero, product scroll, services, transmissions preview, credential strip, about strip
 - **Work** (`/work`) — filtered view of Transmissions showing only posts tagged `work`
-- **Systems** (`/systems`) — catalog of free and paid digital products (replaces `/products`)
-- **Transmissions** (`/transmissions`) — all long-form content with tag filtering (replaces `/blog`)
+- **Systems** (`/systems`) — catalog of free and paid digital products
+- **Transmissions** (`/transmissions`) — all long-form content with tag filtering
 - **Tutorials** (`/tutorials`) — YouTube-linked tutorial series
-- **Connect** (`/connect`) — contact page (replaces `/contact`)
+- **Connect** (`/connect`) — contact page
 - **About / Privacy** — static informational pages
 
 Old routes (`/blog`, `/products`, `/contact`) redirect permanently via `next.config.ts`.
@@ -25,11 +25,14 @@ Old routes (`/blog`, `/products`, `/contact`) redirect permanently via `next.con
 | React | ^19.2.1 |
 | TypeScript | ^5 |
 | Tailwind CSS | ^4 |
+| @tailwindcss/typography | latest |
 | Framer Motion | ^12.23.24 |
 | Lucide React | ^0.552.0 |
 | gray-matter | ^4.0.3 |
 | remark | ^15.0.1 |
 | remark-html | ^16.0.1 |
+| @mdx-js/mdx | installed |
+| @mdx-js/react | installed |
 | ESLint | ^9 |
 | PostCSS | via `@tailwindcss/postcss` ^4 |
 
@@ -38,53 +41,55 @@ Both `dev` and `build` use `--webpack` explicitly (not Turbopack).
 ---
 
 ## 3. Folder Structure
-
 ```
 kabuto-lab/
-├── app/                        # Next.js App Router
-│   ├── layout.tsx              # Root layout (fonts, Header, Footer, GA, Cookie)
-│   ├── page.tsx                # Home page
-│   ├── globals.css             # Global styles + Tailwind base
-│   ├── blog/[slug]/            # Dynamic blog post pages
-│   ├── products/[slug]/        # Dynamic product pages
-│   ├── tutorials/[slug]/       # Dynamic tutorial pages
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── globals.css
 │   ├── about/
-│   ├── contact/
-│   └── privacy/
+│   ├── connect/
+│   ├── privacy/
+│   ├── systems/[slug]/
+│   ├── transmissions/[slug]/
+│   ├── tutorials/[slug]/
+│   ├── work/
+│   └── (legacy redirect folders: blog/, products/, contact/)
 │
 ├── components/
-│   ├── home/                   # Homepage sections (Hero, Services, CTASection, etc.)
-│   ├── products/               # ProductsClient (client-side filtering)
-│   ├── tutorials/              # Tutorial-specific components
-│   ├── shared/                 # Layout components (Header, Footer, GoogleAnalytics, CookieConsent)
-│   └── ui/                     # Reusable cards (ProductCard, ServiceCard, TutorialCard)
+│   ├── home/         # Hero, Services, BlogSection, AboutStrip, SignalStrip, ProductScrollSection
+│   ├── systems/      # SystemsClient
+│   ├── tutorials/    # CustomVideoPlayer
+│   ├── transmissions/ # TransmissionsClient
+│   ├── shared/       # Header, Footer (nav + social only, no newsletter form), GoogleAnalytics, CookieConsent
+│   └── ui/           # ProductCard, TutorialCard, YouTube, BinauralDiagram, TrackList
 │
-├── lib/                        # Data fetching and static data
-│   ├── blog.ts                 # getAllPosts, getPostBySlug, markdownToHtml
-│   ├── productUtils.ts         # getAllProducts, getProductBySlug, getHighlightedProducts, etc.
-│   ├── products.ts             # Hardcoded product array (legacy/supplemental)
-│   ├── tutorials.ts            # getAllTutorials, getTutorialBySlug, getFeaturedTutorials, etc.
-│   ├── services.tsx            # Services data
-│   └── cta.ts                  # CTA configuration
+├── lib/
+│   ├── blog.ts
+│   ├── productUtils.ts
+│   ├── tutorials.ts
+│   ├── services.tsx
+│   ├── cta.ts
+│   └── content.ts        # All UI strings — source of truth
 │
-├── content/                    # Markdown content (file-based CMS)
-│   ├── blog/                   # Blog posts (*.md)
-│   ├── products/               # Product definitions (*.md)
-│   └── tutorials/              # Tutorial definitions (*.md)
+├── content/
+│   ├── blog/         # *.mdx files (lang: en)
+│   ├── products/     # avatar-lab.md (published: true) + 9 scaffold placeholders (published: false)
+│   └── tutorials/    # *.md
 │
-├── public/                     # Static assets
-│   ├── shared/                 # Logos (logo.svg, logo-white.svg, logo-icon.svg, etc.)
+├── public/
+│   ├── shared/
 │   ├── hero/
-│   ├── products/
+│   ├── products/     # avatar-lab.jpg MISSING — needed
 │   ├── blog/
 │   ├── services/
 │   └── tutorials/
 │
-├── next.config.ts              # Webpack config for markdown watching
-├── tailwindcss.config.mjs      # Tailwind content paths + font family theme
-├── postcss.config.mjs          # @tailwindcss/postcss plugin
-├── tsconfig.json               # TypeScript config (strict, bundler resolution, @/* alias)
-└── eslint.config.mjs           # ESLint with next/core-web-vitals + typescript rules
+├── next.config.ts
+├── tailwindcss.config.mjs
+├── postcss.config.mjs
+├── tsconfig.json
+└── eslint.config.mjs
 ```
 
 ---
@@ -92,123 +97,146 @@ kabuto-lab/
 ## 4. Patterns and Conventions
 
 ### File Naming
-- **Components**: PascalCase (`ProductCard.tsx`, `Hero.tsx`)
-- **Route directories**: kebab-case (`/blog`, `/products`)
-- **Markdown files**: kebab-case (`complete-immersion-system.md`)
-- **Lib/utilities**: camelCase (`productUtils.ts`, `markdownToHtml`)
+- **Components**: PascalCase
+- **Route directories**: kebab-case
+- **Markdown files**: kebab-case
+- **Lib/utilities**: camelCase
 
 ### Component Patterns
-- Components that need browser APIs or state are marked `'use client'`
-- Server Components are the default for data-fetching pages
-- Props interfaces are defined above the component
-- TypeScript is used throughout — no `any` types in component props
+- `'use client'` only when browser APIs or state needed
+- Server Components default for data-fetching pages
+- TypeScript throughout — no `any` in component props
+- All imports use `@/` alias — never relative cross-directory
 
-### Import Aliases
-- `@/*` maps to the project root (configured in `tsconfig.json`)
-- All internal imports use `@/` — never relative paths across directories
+### Styling — CSS Variables (critical)
+All colors use CSS custom properties. Never hardcode color values.
 
-### Styling
-- **Tailwind CSS v4** via PostCSS; no `tailwind.config.js` class list — content scanning is configured in `tailwindcss.config.mjs`
-- **Theme system**: light and dark themes defined as CSS custom properties in `globals.css`. `[data-theme="dark"]` is the default. Toggle persists to `localStorage` via `ThemeProvider`. An inline script in `layout.tsx` reads `localStorage` before hydration to prevent flash.
-- **CSS variables — always use these, never hardcode colors**:
-  - `--background` / `bg-[--background]` — page and section backgrounds (never `bg-black` or `bg-[#030014]`)
-  - `--foreground` / `text-[--foreground]` — body and heading text (never `text-white` on prose)
-  - `--surface`, `--surface-alt` — card and panel backgrounds
-  - `--border` — border colors
-  - `--muted` — secondary/muted text
-- **Fonts** loaded via Next.js font optimization in `layout.tsx`:
-  - `--font-geist-sans` (sans-serif default)
-  - `--font-jetbrains-mono` (monospace — note: not `--font-geist-mono`)
-  - `--font-newsreader-serif` (serif)
-- **Global utilities** in `globals.css`: scrollbar hiding, `mix-blend-mode: exclusion` for the header, footer parallax, smooth scroll
+| Variable | Use |
+|---|---|
+| `--background` | Page and section backgrounds |
+| `--foreground` | Body and heading text |
+| `--surface` | Card and panel backgrounds |
+| `--surface-alt` | Hover states, secondary surfaces |
+| `--border` | All border colors |
+| `--muted` | Secondary/muted text |
 
-### Content Management (File-based CMS)
-All content lives in `content/` as Markdown with YAML frontmatter, parsed using `gray-matter` + `remark`.
+**Inverted button pattern:** `bg-[--foreground] text-[--background]` — never `bg-white text-black`
 
-**Blog frontmatter fields:** `title`, `date`, `excerpt`, `image`, `published`, `tags[]` (string array, defaults to `[]`), `lang` (string, defaults to `'en'`)
+**Opacity overlays** (`bg-white/10`, `bg-black/50`) are intentional dark-theme design elements in specific contexts (hero, blog cards) — do not convert to tokens.
 
-**Product frontmatter fields:** `name`, `price`, `category` (template | course | ebook | toolkit | service), `type` (free | paid | custom), `highlighted`, `published`, `benefit`, `description`, `image`, `buyUrl`, `features[]`, `relatedProducts[]`
+**Accent colors** (`text-blue-*`, `bg-blue-*`) are not yet tokenized — leave as-is until Sprint 11 defines `--accent`.
 
-**Tutorial frontmatter fields:** `title`, `description`, `duration`, `lessons`, `level` (beginner | intermediate | advanced), `category`, `tags[]`, `thumbnail`, `youtubePlaylistId`, `videos[]`, `featured`, `published`, `relatedProducts[]`
+**Known deferred CSS violations:**
+- Hero gradient blobs use `bg-gradient-to-br` with hardcoded colors — dark-only, deferred to design sprint
+- ~25 `text-blue-*` / `bg-blue-*` accent instances — not yet tokenized, deferred to Sprint 11 (`--accent`)
+- `BinauralDiagram` uses inline `#4ade80` — deferred to Sprint 11
 
-Items with `published: false` are excluded from all listings. Highlighted/featured items surface on the homepage.
+**Light mode:** Dark mode is current production theme. Light mode will be enabled by editing CSS variable values in `globals.css` only — no component changes should ever be needed.
+
+### Typography
+- `@tailwindcss/typography` is installed and registered
+- `.prose` CSS variable overrides are defined in `globals.css`
+- Prose modifier classes use design tokens: `prose-headings:text-[--foreground]`, `prose-p:text-[--muted]`, etc.
+- Fonts via Next.js font optimization:
+  - `--font-geist-sans`
+  - `--font-jetbrains-mono`
+  - `--font-newsreader-serif`
+
+### MDX Pipeline
+- Transmissions articles: `@mdx-js/mdx` evaluate + `react-dom/server` renderToStaticMarkup
+- Components map passed via `useMDXComponents({})` — registered in `components/mdx-components.tsx`
+- Available globally in MDX (no import needed): `<YouTube>`, `<BinauralDiagram>`, `<TrackList>`
+- Tutorials: separate remark/remark-html pipeline — video driven by frontmatter fields, no MDX needed
+- **Do NOT add `next-mdx-remote`** — existing `@mdx-js/mdx` pipeline works. `@next/mdx` has been intentionally removed.
+
+### Custom MDX Components
+
+**`<BinauralDiagram>`**
+Props: `leftHz` (number), `rightHz` (number), `resultHz` (number), `waveLabel` (string)
+Renders: left ear → right ear → perceived frequency flow diagram. Green accent via inline style (#4ade80) until `--accent` token exists.
+
+**`<TrackList>`**
+Props: `tracks` (array of `{ number, title, bpm, tag }`)
+Tag values: `"abstract"` | `"feeling"` | `"hybrid"`
+Renders: styled table with per-tag badge tints (abstract=indigo, feeling=pink, hybrid=green) via inline styles.
+
+### UI Strings
+- **All UI strings live in `lib/content.ts`** — never hardcode user-facing strings in components
+- `content` is a flat object with 19 sections. Use directly: `content.section.key`
+- `navLinks` is exported separately for Header/Footer
+
+### Content Management
+All content in `content/` as Markdown/MDX with YAML frontmatter, parsed via `gray-matter`.
+
+**Blog frontmatter:** `title`, `date`, `excerpt`, `image`, `published`, `tags[]`, `lang`
+
+**Product frontmatter:** `name`, `price`, `category`, `type`, `highlighted`, `published`, `benefit`, `description`, `image`, `buyUrl`, `features[]`, `relatedProducts[]`
+
+**Tutorial frontmatter:** `title`, `description`, `duration`, `lessons`, `level`, `category`, `tags[]`, `thumbnail`, `youtubePlaylistId`, `videos[]`, `featured`, `published`, `relatedProducts[]`
 
 ### Tag System
-All blog/transmission posts are tagged for filtering. The five canonical tags are:
-
 | Tag | Use |
 |---|---|
-| `work` | Case studies and professional projects — surfaces in `/work` |
-| `research` | HCI research, academic writing, study notes |
-| `builds` | Build logs, technical explorations, prototypes |
-| `galea` | Music project posts and releases |
-| `process` | Workflow, tools, methodology writing |
+| `work` | Case studies — surfaces in `/work` |
+| `research` | HCI research, academic writing |
+| `builds` | Build logs, prototypes |
+| `galea` | Music project posts |
+| `process` | Workflow, methodology |
 
-Tags are defined in post frontmatter as a YAML array: `tags: [work, research]`. The `/transmissions` filter UI exposes all five tags plus `All`. The `/work` page is a server-side filtered view (`tags.includes('Work')`).
+### Article Layout
+- Cover image: full viewport width, `max-height: 480px`, `object-cover`
+- Header column: `max-w-[65ch] mx-auto px-4 md:px-0`
+- Title: `text-3xl md:text-5xl font-bold break-words`
+- Tag badges: per-tag tint (work=indigo, research=cyan, builds=green, galea=amber, process=slate) via inline styles
+- Prose body: `max-w-[65ch]`, `prose-p:text-base md:prose-p:text-xl`
+- YouTube embeds: `w-full aspect-video my-8 rounded-lg overflow-hidden`
 
-### Analytics and Privacy
-- GA4 is loaded only in `production` and only after cookie consent is granted
-- The `NEXT_PUBLIC_GA_ID` env var must be set for GA to fire
-- Cookie consent uses a custom banner component (`CookieConsent.tsx`) that sets consent before loading the GA script
+### Mobile First
+- `min-width` media queries only — never `max-width`
+- Mobile is base, desktop is enhancement
+- Next.js `<Image sizes>` attributes use max-width per spec — this is correct, do not change
 
 ---
 
 ## 5. Environment Variables
 
-Defined in `.env.local` (not committed):
-
 | Variable | Purpose |
 |---|---|
-| `NEXT_PUBLIC_GA_ID` | Google Analytics 4 Measurement ID (e.g. `G-XXXXXXXX`) |
-
-`NEXT_PUBLIC_` prefix exposes the variable to the browser bundle. No server-only secrets are currently in use.
+| `NEXT_PUBLIC_GA_ID` | Google Analytics 4 Measurement ID |
 
 ---
 
 ## 6. NPM Scripts
 
 ```json
-"dev":   "next dev --webpack"    // Start local dev server (webpack mode)
-"build": "next build --webpack"  // Production build (webpack mode)
-"start": "next start"            // Serve the production build
-"lint":  "eslint"                // Run ESLint across the project
+"dev":   "next dev --webpack"
+"build": "next build --webpack"
+"start": "next start"
+"lint":  "eslint"
 ```
-
-No test runner is configured.
 
 ---
 
 ## 7. Route Structure
 
-| Route | Description | Replaces |
-|---|---|---|
-| `/` | Home — hero, product scroll, signal strip, services, transmissions preview, about strip | — |
-| `/work` | Filtered view of Transmissions — posts tagged `work` only | — |
-| `/systems` | Product catalog (file-based, markdown-driven) | `/products` |
-| `/systems/[slug]` | Individual product/system page | `/products/[slug]` |
-| `/transmissions` | All long-form content with tag filter UI | `/blog` |
-| `/transmissions/[slug]` | Individual post page | `/blog/[slug]` |
-| `/tutorials` | YouTube-linked tutorial series | — |
-| `/tutorials/[slug]` | Individual tutorial page | — |
-| `/connect` | Contact / get in touch | `/contact` |
-| `/about` | Static about page | — |
-| `/privacy` | Static privacy policy | — |
+| Route | Description |
+|---|---|
+| `/` | Home |
+| `/work` | Transmissions filtered by `work` tag |
+| `/systems` | Product catalog |
+| `/systems/[slug]` | Individual product page |
+| `/transmissions` | All long-form content |
+| `/transmissions/[slug]` | Individual article |
+| `/tutorials` | Tutorial series |
+| `/tutorials/[slug]` | Individual tutorial |
+| `/connect` | Contact |
+| `/about` | About |
+| `/privacy` | Privacy policy |
 
-Old routes redirect permanently via `next.config.ts`:
-- `/blog` → `/transmissions`
-- `/blog/:slug` → `/transmissions/:slug`
-- `/products` → `/systems`
-- `/products/:slug` → `/systems/:slug`
-- `/contact` → `/connect`
+Redirects via `next.config.ts`: `/blog` → `/transmissions`, `/products` → `/systems`, `/contact` → `/connect`
 
 ---
 
-## 8. i18n Readiness
+## 8. Language
 
-No i18n library is installed yet. The following conventions are in place so future translation work is clean:
-
-- **UI copy**: All hardcoded UI strings go in `lib/content.ts` — never scattered across components. This makes extraction to `next-intl` or similar straightforward.
-- **Content file naming**: When translations are added, use the locale suffix pattern: `post-title.pt.md`, `post-title.es.md`. Current files use no suffix (implies `en`).
-- **Frontmatter lang field**: All blog posts include `lang: en` in frontmatter. Zod schema defaults to `'en'` if omitted.
-- **No files renamed**: Existing files stay as-is until a translation is actually ready.
-- **Library**: Add `next-intl` or equivalent only when the first non-English translation is committed.
+Site is English only. No i18n planned.

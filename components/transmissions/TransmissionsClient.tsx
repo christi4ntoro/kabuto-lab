@@ -4,19 +4,31 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { BlogPost } from '@/lib/blog';
-
-const TAGS = ['All', 'Work', 'Research', 'Builds', 'Galea', 'Process'];
+import { content } from '@/lib/content';
 
 interface Props {
   posts: BlogPost[];
 }
 
 export default function TransmissionsClient({ posts }: Props) {
+  const t = content;
+
+  const TAGS = [
+    { key: 'All', label: t.transmissions.tagAll },
+    { key: 'Work', label: t.transmissions.tagWork },
+    { key: 'Research', label: t.transmissions.tagResearch },
+    { key: 'Builds', label: t.transmissions.tagBuilds },
+    { key: 'Galea', label: t.transmissions.tagGalea },
+    { key: 'Process', label: t.transmissions.tagProcess },
+  ];
+
   const [activeTag, setActiveTag] = useState('All');
 
   const filtered = activeTag === 'All'
     ? posts
     : posts.filter(post => post.tags.includes(activeTag));
+
+  const activeTagLabel = TAGS.find(tag => tag.key === activeTag)?.label ?? activeTag;
 
   return (
     <>
@@ -24,15 +36,15 @@ export default function TransmissionsClient({ posts }: Props) {
       <div className="flex flex-wrap gap-2 mb-12">
         {TAGS.map(tag => (
           <button
-            key={tag}
-            onClick={() => setActiveTag(tag)}
+            key={tag.key}
+            onClick={() => setActiveTag(tag.key)}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              activeTag === tag
-                ? 'bg-white text-black'
+              activeTag === tag.key
+                ? 'bg-[--foreground] text-[--background]'
                 : 'bg-white/10 text-white/60 hover:bg-white/20 hover:text-white'
             }`}
           >
-            {tag}
+            {tag.label}
           </button>
         ))}
       </div>
@@ -40,7 +52,9 @@ export default function TransmissionsClient({ posts }: Props) {
       {/* Post list */}
       <div className="space-y-12">
         {filtered.length === 0 && (
-          <p className="text-gray-400">No posts tagged &ldquo;{activeTag}&rdquo; yet.</p>
+          <p className="text-[--muted]">
+            {t.transmissions.noPostsTagged.replace('{tag}', activeTagLabel)}
+          </p>
         )}
         {filtered.map((post) => (
           <article
@@ -49,7 +63,7 @@ export default function TransmissionsClient({ posts }: Props) {
           >
             {post.image && (
               <Link href={`/transmissions/${post.slug}`}>
-                <div className="relative w-full aspect-video bg-neutral-900">
+                <div className="relative w-full aspect-video bg-[--background]">
                   <Image
                     src={post.image}
                     alt={post.title}
@@ -61,8 +75,8 @@ export default function TransmissionsClient({ posts }: Props) {
               </Link>
             )}
 
-            <div className="p-8">
-              <time className="text-sm text-gray-400 mb-3 block">
+            <div className="p-4 md:p-8">
+              <time className="text-sm text-[--muted] mb-3 block">
                 {new Date(post.date).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
@@ -81,8 +95,7 @@ export default function TransmissionsClient({ posts }: Props) {
                   {post.tags.map(tag => (
                     <span
                       key={tag}
-                      className="text-xs px-2 py-0.5 rounded-full bg-[--surface-alt] text-[--muted]"
-                      style={{ fontFamily: 'var(--font-geist-mono)' }}
+                      className="text-xs px-2 py-0.5 rounded-full bg-[--surface-alt] text-[--muted] font-mono"
                     >
                       {tag}
                     </span>
@@ -96,7 +109,7 @@ export default function TransmissionsClient({ posts }: Props) {
                 href={`/transmissions/${post.slug}`}
                 className="text-blue-400 hover:text-blue-300 transition-colors font-bold"
               >
-                Read more →
+                {t.transmissions.readMore}
               </Link>
             </div>
           </article>

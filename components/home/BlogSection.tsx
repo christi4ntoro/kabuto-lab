@@ -1,10 +1,16 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllPosts } from '@/lib/blog';
+import type { BlogPost } from '@/lib/blog';
+import { content } from '@/lib/content';
 
-export default function BlogSection() {
-  // Get latest 2 posts
-  const latestPosts = getAllPosts().slice(0, 3);
+interface BlogSectionProps {
+  posts: BlogPost[];
+}
+
+export default function BlogSection({ posts }: BlogSectionProps) {
+  const t = content;
 
   return (
     <section className="px-4 py-16 md:py-24 bg-[--background]">
@@ -13,24 +19,24 @@ export default function BlogSection() {
         <div className="flex items-center justify-between mb-12">
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-[--foreground] mb-2">
-              Transmissions
+              {t.blog.heading}
             </h2>
-            <p className="text-lg text-gray-400">
-              Research notes, build logs, and releases
+            <p className="text-lg text-[--muted]">
+              {t.blog.subheading}
             </p>
           </div>
-          
+
           <Link
             href="/transmissions"
             className="hidden md:inline-block text-blue-400 hover:text-blue-300 font-bold transition-colors"
           >
-            View All →
+            {t.blog.viewAll}
           </Link>
         </div>
 
-        {/* Blog Cards Grid - Fixed z-index */}
+        {/* Blog Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {latestPosts.map((post) => (
+          {posts.map((post) => (
             <article
               key={post.slug}
               className="relative border border-white/20 rounded-lg overflow-hidden bg-black/50 backdrop-blur hover:border-white/60 transition-all duration-300 hover:scale-105 flex flex-col"
@@ -39,7 +45,7 @@ export default function BlogSection() {
               {/* Featured Image */}
               {post.image && (
                 <Link href={`/transmissions/${post.slug}`} className="block">
-                  <div className="relative w-full aspect-video bg-neutral-900">
+                  <div className="relative w-full aspect-video bg-[--background]">
                     <Image
                       src={post.image}
                       alt={post.title}
@@ -54,7 +60,7 @@ export default function BlogSection() {
               {/* Content */}
               <div className="p-6 md:p-8 flex flex-col flex-grow">
                 {/* Date */}
-                <time className="text-sm text-gray-400 mb-3">
+                <time className="text-sm text-[--muted] mb-3">
                   {new Date(post.date).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -70,7 +76,7 @@ export default function BlogSection() {
                 </Link>
 
                 {/* Excerpt */}
-                <p className="text-gray-300 mb-6 flex-grow leading-relaxed">
+                <p className="text-[--muted] mb-6 flex-grow leading-relaxed">
                   {post.excerpt}
                 </p>
 
@@ -79,7 +85,7 @@ export default function BlogSection() {
                   href={`/transmissions/${post.slug}`}
                   className="inline-block text-blue-400 hover:text-blue-300 font-bold transition-colors"
                 >
-                  Read Article →
+                  {t.blog.readArticle}
                 </Link>
               </div>
             </article>
@@ -90,9 +96,9 @@ export default function BlogSection() {
         <div className="mt-8 text-center md:hidden">
           <Link
             href="/transmissions"
-            className="inline-block bg-white text-black px-6 py-3 font-bold rounded-lg hover:bg-blue-400 hover:text-white transition-all"
+            className="inline-block bg-[--foreground] text-[--background] px-6 py-3 font-bold rounded-lg hover:bg-blue-400 hover:text-white transition-all"
           >
-            View All Articles →
+            {t.blog.viewAllMobile}
           </Link>
         </div>
       </div>

@@ -26,18 +26,18 @@ export default function TutorialCard({
 }: TutorialCardProps) {
   // Level badge colors
   const levelColors = {
-    beginner: 'bg-green-100 text-green-800',
-    intermediate: 'bg-yellow-100 text-yellow-800',
-    advanced: 'bg-red-100 text-red-800',
+    beginner: 'bg-green-900/30 text-green-400',
+    intermediate: 'bg-yellow-900/30 text-yellow-400',
+    advanced: 'bg-red-900/30 text-red-400',
   };
 
   return (
     <Link 
       href={`/tutorials/${slug}`}
-      className="group block bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-200"
+      className="group block bg-[--surface] rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-[--border]"
     >
       {/* Thumbnail */}
-      <div className="relative w-full aspect-video bg-gray-200">
+      <div className="relative w-full aspect-video bg-[--surface-alt]">
         <Image
           src={thumbnail}
           alt={title}
@@ -55,8 +55,8 @@ export default function TutorialCard({
       {/* Content */}
       <div className="p-4">
         {/* Category & Meta */}
-        <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
-          <span className="font-medium text-gray-700">{category}</span>
+        <div className="flex items-center gap-2 text-sm text-[--muted] mb-2">
+          <span className="font-medium text-[--muted]">{category}</span>
           <span>•</span>
           <span>{duration}</span>
           <span>•</span>
@@ -64,12 +64,12 @@ export default function TutorialCard({
         </div>
 
         {/* Title */}
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+        <h3 className="text-lg font-semibold text-[--foreground] mb-2 group-hover:text-blue-600 transition-colors">
           {title}
         </h3>
 
         {/* Description */}
-        <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+        <p className="text-sm text-[--muted] mb-3 line-clamp-2">
           {description}
         </p>
 
@@ -78,13 +78,13 @@ export default function TutorialCard({
           {tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded"
+              className="px-2 py-1 bg-[--surface-alt] text-[--muted] text-xs rounded"
             >
               {tag}
             </span>
           ))}
           {tags.length > 3 && (
-            <span className="px-2 py-1 text-gray-500 text-xs">
+            <span className="px-2 py-1 text-[--muted] text-xs">
               +{tags.length - 3}
             </span>
           )}

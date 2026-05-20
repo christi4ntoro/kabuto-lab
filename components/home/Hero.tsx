@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
+import { content } from '@/lib/content';
 
 export default function Hero() {
   const blob1Ref = useRef<HTMLDivElement>(null);
@@ -43,6 +44,8 @@ export default function Hero() {
 
     return () => cancelAnimationFrame(animationFrameId);
   }, []);
+
+  const t = content;
 
   return (
     <section className="h-screen w-full flex items-center justify-center p-2 md:p-2 py-4 md:py-2 md:snap-start">
@@ -92,27 +95,24 @@ export default function Hero() {
         {/* Content */}
         <div className="relative h-full flex items-center justify-center px-4 z-10">
           <div className="text-center max-w-4xl">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl mb-4 sm:mb-6 text-white md:pt-16">
-              <span className="font-serif italic">Interaction Design.</span><br></br><span className='font-bold'>HCI Research. Making.</span>
-              {/* <span className="font-serif italic">Prototype</span><br></br><span className='font-bold'>Lab.</span> */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl mb-4 sm:mb-6 text-[--foreground] md:pt-16">
+              <span className="font-serif italic">{t.hero.headingLine1}</span><br></br><span className='font-bold'>{t.hero.headingLine2}</span>
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-6 sm:mb-8">
-              A practice at the intersection of human behavior, immersive technology, and AI systems.
-              {/* Personal R&D workspace for scalable patterns */}
+              {t.hero.subheading}
             </p>
-            {/* Buttons Container */}
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
-              <Link 
+              <Link
                 href="/systems"
-                className="inline-block bg-white text-black px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-200 text-center"
+                className="inline-block bg-[--foreground] text-[--background] px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold hover:bg-[--surface-alt] transition-colors duration-200 text-center"
               >
-                See the Work
+                {t.hero.cta1}
               </Link>
-              <Link 
+              <Link
                 href="/connect"
-                className="inline-block bg-white text-black px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold hover:bg-gray-200 transition-colors duration-200 text-center"
+                className="inline-block bg-[--foreground] text-[--background] px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-bold hover:bg-[--surface-alt] transition-colors duration-200 text-center"
               >
-                Get in touch
+                {t.hero.cta2}
               </Link>
             </div>
           </div>

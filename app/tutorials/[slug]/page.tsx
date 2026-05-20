@@ -52,9 +52,9 @@ export default async function TutorialPage({
   };
   
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[--background]">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-[--surface] border-b border-[--border]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Link 
             href="/tutorials"
@@ -67,22 +67,22 @@ export default async function TutorialPage({
             <span className={`px-3 py-1 rounded-full text-sm font-medium ${levelColors[tutorial.level]}`}>
               {tutorial.level}
             </span>
-            <span className="text-gray-500 text-sm">{tutorial.category}</span>
-            <span className="text-gray-500 text-sm">•</span>
-            <span className="text-gray-500 text-sm">{tutorial.duration}</span>
-            <span className="text-gray-500 text-sm">•</span>
-            <span className="text-gray-500 text-sm">{tutorial.lessons} lessons</span>
+            <span className="text-[--muted] text-sm">{tutorial.category}</span>
+            <span className="text-[--muted] text-sm">•</span>
+            <span className="text-[--muted] text-sm">{tutorial.duration}</span>
+            <span className="text-[--muted] text-sm">•</span>
+            <span className="text-[--muted] text-sm">{tutorial.lessons} lessons</span>
           </div>
           
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{tutorial.title}</h1>
-          <p className="text-xl text-gray-600 mb-6">{tutorial.description}</p>
+          <h1 className="text-4xl font-bold text-[--foreground] mb-4">{tutorial.title}</h1>
+          <p className="text-xl text-[--muted] mb-6">{tutorial.description}</p>
           
           {tutorial.tags && tutorial.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {tutorial.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                  className="px-3 py-1 bg-[--surface-alt] text-[--muted] rounded-full text-sm"
                 >
                   {tag}
                 </span>
@@ -104,7 +104,7 @@ export default async function TutorialPage({
           </div>
         ) : tutorial.youtubePlaylistId ? (
           <div className="mb-12">
-            <div className="relative w-full aspect-video bg-gray-900 rounded-lg overflow-hidden shadow-lg">
+            <div className="relative w-full aspect-video bg-[--background] rounded-lg overflow-hidden shadow-lg">
               <iframe
                 src={`https://www.youtube.com/embed/videoseries?list=${tutorial.youtubePlaylistId}`}
                 title={tutorial.title}
@@ -117,14 +117,14 @@ export default async function TutorialPage({
         ) : null}
 
         {/* Markdown Content */}
-        <div className="bg-white rounded-lg shadow-sm p-8">
-          <div 
+        <div className="bg-[--surface] rounded-lg shadow-sm p-8">
+          <div
             className="prose prose-lg max-w-none
-                       prose-headings:text-gray-900 prose-headings:font-bold
-                       prose-p:text-gray-700 prose-p:leading-relaxed
+                       prose-headings:text-[--foreground] prose-headings:font-bold
+                       prose-p:text-[--muted] prose-p:leading-relaxed
                        prose-a:text-blue-600 prose-a:no-underline hover:prose-a:text-blue-700
-                       prose-strong:text-gray-900
-                       prose-ul:text-gray-700
+                       prose-strong:text-[--foreground]
+                       prose-ul:text-[--muted]
                        prose-li:my-2"
             dangerouslySetInnerHTML={{ __html: contentHtml }}
           />

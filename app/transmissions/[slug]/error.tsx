@@ -12,10 +12,10 @@ export default function TransmissionError({
   return (
     <div className="min-h-screen bg-[--background] text-[--foreground] flex flex-col items-center justify-center px-6">
       <h1 className="text-4xl font-bold mb-4">Something went wrong</h1>
-      <p className="text-gray-400 text-lg mb-8">{error.message}</p>
+      <p className="text-[--muted] text-lg mb-8">{error.message}</p>
       <button
         onClick={reset}
-        className="px-6 py-2 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-colors mb-4"
+        className="px-6 py-2 bg-[--foreground] text-[--background] font-semibold rounded-lg hover:bg-[--surface-alt] transition-colors mb-4"
       >
         Try again
       </button>

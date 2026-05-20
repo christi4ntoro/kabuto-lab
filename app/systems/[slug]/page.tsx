@@ -84,7 +84,7 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left: System Info */}
           <div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 break-words">
               {product.name}
             </h1>
 
@@ -111,14 +111,14 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
                 href={buttonConfig.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-8 py-4 bg-white text-black text-lg font-bold rounded-lg hover:bg-blue-400 hover:text-white transition-all transform hover:-translate-y-1 hover:shadow-xl"
+                className="inline-block px-8 py-4 bg-[--foreground] text-[--background] text-lg font-bold rounded-lg hover:bg-blue-400 hover:text-white transition-all transform hover:-translate-y-1 hover:shadow-xl"
               >
                 {buttonConfig.text} →
               </a>
             ) : (
               <Link
                 href={buttonConfig.url}
-                className="inline-block px-8 py-4 bg-white text-black text-lg font-bold rounded-lg hover:bg-blue-400 hover:text-white transition-all transform hover:-translate-y-1 hover:shadow-xl"
+                className="inline-block px-8 py-4 bg-[--foreground] text-[--background] text-lg font-bold rounded-lg hover:bg-blue-400 hover:text-white transition-all transform hover:-translate-y-1 hover:shadow-xl"
               >
                 {buttonConfig.text} →
               </Link>
@@ -126,7 +126,7 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
           </div>
 
           {/* Right: System Image */}
-          <div className="relative aspect-video rounded-2xl overflow-hidden bg-neutral-900">
+          <div className="relative aspect-video rounded-2xl overflow-hidden bg-[--background]">
             <Image
               src={product.image}
               alt={product.name}
@@ -140,7 +140,7 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
 
       {/* Features Section */}
       {product.features.length > 0 && (
-        <div className="bg-neutral-900/50 py-16">
+        <div className="bg-[--surface]/50 py-16">
           <div className="max-w-7xl mx-auto px-6 md:px-16">
             <h2 className="text-3xl font-bold mb-8">What&apos;s Included</h2>
             <div className="grid md:grid-cols-2 gap-4">
@@ -169,7 +169,7 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
 
       {/* Related Systems */}
       {relatedProducts.length > 0 && (
-        <div className="bg-neutral-900/30 py-16">
+        <div className="bg-[--surface]/30 py-16">
           <div className="max-w-7xl mx-auto px-6 md:px-16">
             <h2 className="text-3xl font-bold mb-8">Related Systems</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -195,14 +195,14 @@ export default async function SystemPage({ params }: { params: Promise<{ slug: s
             href={buttonConfig.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-12 py-5 bg-white text-black text-xl font-bold rounded-lg hover:bg-blue-400 hover:text-white transition-all transform hover:-translate-y-1 hover:shadow-xl"
+            className="inline-block w-full text-center px-6 py-5 bg-[--foreground] text-[--background] text-xl font-bold rounded-lg hover:bg-blue-400 hover:text-white transition-all transform hover:-translate-y-1 hover:shadow-xl md:w-auto md:px-12"
           >
             {buttonConfig.text} →
           </a>
         ) : (
           <Link
             href={buttonConfig.url}
-            className="inline-block px-12 py-5 bg-white text-black text-xl font-bold rounded-lg hover:bg-blue-400 hover:text-white transition-all transform hover:-translate-y-1 hover:shadow-xl"
+            className="inline-block w-full text-center px-6 py-5 bg-[--foreground] text-[--background] text-xl font-bold rounded-lg hover:bg-blue-400 hover:text-white transition-all transform hover:-translate-y-1 hover:shadow-xl md:w-auto md:px-12"
           >
             {buttonConfig.text} →
           </Link>

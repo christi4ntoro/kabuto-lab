@@ -23,7 +23,7 @@ export default function ProductScrollWrapper() {
       image: product.image,
       type: product.type,
     }));
-  } catch (error) {
+  } catch {
     console.log('No markdown products found, using empty array');
   }
 
